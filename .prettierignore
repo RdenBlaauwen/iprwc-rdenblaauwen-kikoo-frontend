@@ -1,0 +1,6 @@
+.eslintignore
+package.json
+package-lock.json
+dist
+karma.conf.js
+e2e/protractor.conf.js
