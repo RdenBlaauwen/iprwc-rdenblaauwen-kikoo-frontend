@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LayeredContentDirective } from './layeredContent/layered-content.directive';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LayeredContentDirective],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

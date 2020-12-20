@@ -1,0 +1,27 @@
+.el1 {
+    background-color: red;
+}
+
+.el2 {
+    background-color: blue;
+}
+
+.layer-container {
+    // position: relative;
+    background-color: lightgray;
+    height: 100%;
+    width: 100%;
+
+    & > * {
+        position: fixed;
+        top: 0;
+        left: 0;
+        max-height: 100%;
+        overflow: auto;
+        width: 100%;
+    }
+    
+    & > *:first-child {
+        position: relative;
+    }
+}
