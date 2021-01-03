@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-shop-display',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shop-display.component.scss'],
 })
 export class ShopDisplayComponent implements OnInit {
-  constructor() {}
+  constructor(private http: ProductService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.http.get();
+  }
 }
