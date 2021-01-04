@@ -1,17 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ShopDisplayComponent } from './shop-display/shop-display.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductService } from './services/product.service';
+import { KkuShopModule } from './kku-shop-module/kku-shop.module';
+import { KkuCommonModule } from './kku-common/kku-common.module';
+import { KkuDashboardModule } from './kku-dashboard/kku-dashboard.module';
 
 @NgModule({
-  declarations: [AppComponent, ShopDisplayComponent, DashboardComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [ProductService],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    KkuShopModule,
+    KkuCommonModule,
+    KkuDashboardModule,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
