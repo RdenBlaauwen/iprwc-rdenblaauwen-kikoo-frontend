@@ -1,0 +1,33 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-auto">
+            <label for="username" class="col-form-label">Username</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                name="username"
+                ngModel
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <label for="password" class="col-form-label">Password</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                name="password"
+                ngModel
+            >
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit">Submit</button>
+    </div>
+</form>
