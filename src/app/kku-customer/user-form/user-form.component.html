@@ -1,4 +1,4 @@
-<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="form">
     <div class="row" >
         <div class="col-auto">
             <label for="username" class="col-form-label">Username</label>
@@ -10,12 +10,19 @@
                 id="username"
                 formControlName="username"
             >
-            <span 
-                class="form-text" 
-                *ngIf="!reactiveForm.get('username').valid && reactiveForm.get('username').touched"
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <label for="email" class="col-form-label">Email</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="email"
+                class="form-control" 
+                id="email" 
+                formControlName="email"
             >
-                pls enter sum shit
-            </span>
         </div>
     </div>
     <div class="row">
@@ -30,14 +37,5 @@
                 formControlName="password"
             >
         </div>
-    </div>
-    <span 
-        class="form-text" 
-        *ngIf="!reactiveForm.valid && reactiveForm.touched"
-    >
-        pls enter sum shit
-    </span>
-    <div class="row">
-        <button type="submit">Submit</button>
     </div>
 </form>
