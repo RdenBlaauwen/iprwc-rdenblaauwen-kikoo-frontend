@@ -39,7 +39,6 @@ export class UserFormComponent implements OnInit {
         this.updateUserModel(userData);
       }
       this.onChange.emit(this.form);
-      console.log('Change Emitted!');
       if (this.form.valid) {
         this.onChangeWhileValid.emit(this.form);
       }
