@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -7,18 +7,19 @@ import { User } from 'src/app/models/user';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
   @Input('user') userModel?: User;
-  @ViewChild('form') signupForm?: NgForm;
 
-  public default = 'kek';
+  reactiveForm?: FormGroup;
 
-  // onSubmit(form: NgForm): void {
-  //   console.log('submitted', form);
-  // }
+  ngOnInit(): void {
+    this.reactiveForm = new FormGroup({
+      username: new FormControl('kekkie', Validators.required),
+      password: new FormControl(null, [Validators.required, Validators.email]),
+    });
+  }
 
-  onSubmit(): void {
-    // console.log('submitted', form);
-    console.log('submitted', this.signupForm);
+  public onSubmit(): void {
+    console.log(this.reactiveForm);
   }
 }
