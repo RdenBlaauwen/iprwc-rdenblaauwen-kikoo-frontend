@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SignupComponent } from '../kku-customer/signup/signup.component';
 
 const routes: Routes = [
+  { path: 'login', component: SignupComponent },
   // { path: 'signup', component: '', outlit: 'modal' }
 ];
 
@@ -9,4 +11,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class KkuRoutingModule {}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/kku-shared/models/user';
+import { UserService } from 'src/app/kku-shared/services/user.service';
 
 @Component({
   selector: 'kku-signup',

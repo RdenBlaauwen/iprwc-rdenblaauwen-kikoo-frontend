@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { User } from './models/user';
 
 @Component({
   selector: 'app-root',

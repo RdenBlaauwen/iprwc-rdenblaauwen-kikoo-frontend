@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/kku-shared/services/product.service';
 
 @Component({
   selector: 'kku-shop-display',

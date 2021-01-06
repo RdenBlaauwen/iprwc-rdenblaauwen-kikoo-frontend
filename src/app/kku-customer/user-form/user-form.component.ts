@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/kku-shared/models/user';
 
 enum AbstractControlStatus {
   VALID = 'VALID',
