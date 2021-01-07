@@ -26,26 +26,31 @@ export class UserFormComponent implements OnInit {
   @Output() onChange = new EventEmitter<FormGroup>();
   @Output() onChangeWhileValid = new EventEmitter<FormGroup>();
 
-  form: FormGroup = new FormGroup({});
-  get formInitialized(): boolean {
-    return Object.keys(this.form.controls).length > 0;
+  @Input('formGroup') form?: FormGroup;
+
+  // returns a FromGroup instance, even when there isn't one yet
+  // TODO: find a better solution
+  public get nonNullForm() {
+    return this.form || new FormGroup({});
   }
 
   ngOnInit(): void {
-    this.form = this.buildForm(this._user);
+    if (!this.form) {
+      this.form = this.defaultForm(this._user);
+    }
 
     this.form.valueChanges.subscribe((userData) => {
       if (this.autoUpdate) {
         this.updateUserModel(userData);
       }
       this.onChange.emit(this.form);
-      if (this.form.valid) {
+      if (this.form && this.form.valid) {
         this.onChangeWhileValid.emit(this.form);
       }
     });
   }
 
-  private buildForm(user: User | undefined): FormGroup {
+  private defaultForm(user: User | undefined): FormGroup {
     return new FormGroup({
       username: new FormControl(user && user.username, Validators.required),
       password: new FormControl(null, Validators.minLength(8)),
@@ -54,7 +59,7 @@ export class UserFormComponent implements OnInit {
   }
 
   private updateForm(user: User): void {
-    if (!this.formInitialized) {
+    if (!this.form) {
       return;
     }
     this.form.controls.email.setValue(user.email || null);

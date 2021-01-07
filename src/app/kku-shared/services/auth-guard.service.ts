@@ -44,13 +44,18 @@ export class AuthGuardService implements CanActivate {
 
   public authorize(user: User): Observable<User> {
     return new Observable((subscriber) => {
-      this.apiInterface
-        .post<{ user: User; token: string }>(this.API_URL, user)
-        .subscribe((auth) => {
-          this._authToken = auth.token;
-          this.me.next(auth.user);
-          subscriber.next(auth.user);
-        });
+      try {
+        this.apiInterface
+          .post<{ user: User; token: string }>(this.API_URL, user)
+          .subscribe((auth) => {
+            console.log('auth retreived:', auth);
+            // this._authToken = auth.token;
+            // this.me.next(auth.user);
+            // subscriber.next(auth.user);
+          });
+      } catch (error) {
+        subscriber.error(error);
+      }
     });
   }
 }

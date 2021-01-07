@@ -12,11 +12,11 @@ export class SignupComponent {
   public valid = false;
 
   private _user = new User(
-    'baba',
+    'KEK',
     undefined,
     undefined,
     undefined,
-    'r@r.nl',
+    'KEK@KEK.KEK',
     undefined
   );
 
