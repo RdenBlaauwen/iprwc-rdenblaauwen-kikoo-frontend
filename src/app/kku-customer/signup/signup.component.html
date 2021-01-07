@@ -1,19 +1,6 @@
-<section class="card">
-    <div class="row">
-        <div class="col-md-6">
-            <section class="card-body">
-                <h6>Log in</h6>
-                <kku-user-form (onChangeWhileValid)="valid=true"></kku-user-form>
-                <button type="submit" class="btn btn-primary" (click)="send()">Log in</button>
-            </section>
-        </div>
-        <div class="col-md-6">
-            <section class="card-body">
-                <h6>Or make an account</h6>
-                <kku-user-form [user]="user" [autoUpdate]="true" (onChangeWhileValid)="valid=true"></kku-user-form>
-                <button type="submit" class="btn btn-primary" (click)="send()">Submit</button>
-                {{valid}}
-            </section>
-        </div>
-    </div>
+<section class="card-body">
+    <h6>Or make an account</h6>
+    <kku-user-form [user]="user" [autoUpdate]="true" (onChangeWhileValid)="valid=true"></kku-user-form>
+    <button type="submit" class="btn btn-primary" (click)="send()">Submit</button>
+    {{valid}}
 </section>

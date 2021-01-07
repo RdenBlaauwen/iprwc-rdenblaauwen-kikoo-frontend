@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SignupComponent } from '../kku-customer/signup/signup.component';
+import { SigninSignupComponent } from '../kku-customer/signin-signup/signin-signup.component';
 
 const routes: Routes = [
-  { path: 'login', component: SignupComponent },
+  { path: 'login', component: SigninSignupComponent },
   // { path: 'signup', component: '', outlit: 'modal' }
 ];
 
