@@ -1,5 +1,30 @@
-<section class="card-body">
-    <h6>Log in</h6>
-    <kku-user-form (onChangeWhileValid)="valid=true"></kku-user-form>
-    <button type="submit" class="btn btn-primary" (click)="send()">Log in</button>
-</section>
+<form [formGroup]="form" (ngSubmit)="send()">
+    <div class="row" >
+        <div class="col-auto">
+            <label for="SignInUsername" class="col-form-label">Username</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="SignInUsername"
+                formControlName="username"
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <label for="signInPassword" class="col-form-label">Password</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="password" 
+                class="form-control" 
+                id="signInPassword" 
+                formControlName="password"
+            >
+        </div>
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </div>
+    {{valid}}
+</form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/kku-shared/models/user';
 import { UserService } from 'src/app/kku-shared/services/user.service';
 
@@ -9,9 +9,7 @@ import { UserService } from 'src/app/kku-shared/services/user.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  public valid = false;
-
-  private _user = new User(
+  private user = new User(
     'KEK',
     undefined,
     undefined,
@@ -20,30 +18,36 @@ export class SignupComponent {
     undefined
   );
 
-  public get user(): User {
-    return this._user;
+  public form = new FormGroup({
+    username: new FormControl(
+      this.user && this.user.username,
+      Validators.required
+    ),
+    password: new FormControl(null, [
+      Validators.minLength(8),
+      Validators.required,
+    ]),
+    email: new FormControl(this.user && this.user.email, [
+      Validators.email,
+      Validators.required,
+    ]),
+  });
+
+  get valid() {
+    return this.form.valid;
   }
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.form.valueChanges.subscribe((userData) => {
+      this.user.username = userData.username;
+      this.user.email = userData.email;
+      this.user.password = userData.password;
+    });
+  }
 
-  // onUserChanged(event: FormGroup): void {
-  //   const { email, username, password } = event.controls;
-  //   this._user.email = email.value;
-  //   this._user.username = username.value;
-  //   this._user.password = password.value;
-  //   this._user = new User(
-  //     username.value,
-  //     undefined,
-  //     undefined,
-  //     password.value,
-  //     email.value,
-  //     undefined
-  //   );
-  // }
-
-  send(): void {
-    if (this.valid) {
-      this.userService.post(this._user);
+  onSubmit(): void {
+    if (this.form.valid) {
+      this.userService.post(this.user);
     }
   }
 }

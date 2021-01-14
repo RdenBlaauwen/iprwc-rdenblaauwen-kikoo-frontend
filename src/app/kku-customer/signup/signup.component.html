@@ -1,6 +1,43 @@
-<section class="card-body">
-    <h6>Or make an account</h6>
-    <kku-user-form [user]="user" [autoUpdate]="true" (onChangeWhileValid)="valid=true"></kku-user-form>
-    <button type="submit" class="btn btn-primary" (click)="send()">Submit</button>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row" >
+        <div class="col-auto">
+            <label for="signUpUsername" class="col-form-label">Username</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="signUpUsername"
+                formControlName="username"
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <label for="email" class="col-form-label">Email</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="email"
+                class="form-control" 
+                id="email" 
+                formControlName="email"
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <label for="signUpPassword" class="col-form-label">Password</label>
+        </div>
+        <div class="col-auto">
+            <input 
+                type="password" 
+                class="form-control" 
+                id="signUpPassword" 
+                formControlName="password"
+            >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
     {{valid}}
-</section>
+</form>

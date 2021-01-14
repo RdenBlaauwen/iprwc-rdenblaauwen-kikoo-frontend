@@ -10,3 +10,11 @@ export class User {
     public customer?: string | Customer
   ) {}
 }
+
+export class Credentials {
+  constructor(
+    public username: string,
+    public password: string,
+    public email?: string
+  ) {}
+}
