@@ -29,9 +29,7 @@ export class ProductService {
   constructor(private apiInterface: ApiInterfaceService) {}
 
   public get(): Subject<Product[]> {
-    const subject = new Subject<Product[]>();
-
-    this.apiInterface.get<Product[]>(this.API_URL).subscribe(subject);
+    const subject = this.apiInterface.get<Product[]>(this.API_URL);
 
     subject.subscribe((products) => {
       this._products.next(products);

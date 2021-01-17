@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -25,25 +25,50 @@ export class ApiInterfaceService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public get<T>(pathPart: string): Observable<T> {
-    return this.http.get<T>(this.path(pathPart), { headers: this.headers });
+  public get<T>(pathPart: string): Subject<T> {
+    const subject = new Subject<T>();
+
+    this.http
+      .get<T>(this.path(pathPart), {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    return subject;
   }
 
-  public post<T>(pathPart: string, data: T): Observable<T> {
-    return this.http.post<T>(this.path(pathPart), data, {
-      headers: this.headers,
-    });
+  public post<T>(pathPart: string, data: T): Subject<T> {
+    const subject = new Subject<T>();
+
+    this.http
+      .post<T>(this.path(pathPart), data, {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    return subject;
   }
 
-  public patch<T>(pathPart: string, data: T): Observable<T> {
-    return this.http.patch<T>(this.path(pathPart), data, {
-      headers: this.headers,
-    });
+  public patch<T>(pathPart: string, data: T): Subject<T> {
+    const subject = new Subject<T>();
+    this.http
+      .patch<T>(this.path(pathPart), data, {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    return subject;
   }
 
-  public delete<T>(pathPart: string): Observable<any> {
-    return this.http.delete<T>(this.path(pathPart), {
-      headers: this.headers,
-    });
+  public delete<T>(pathPart: string): Subject<any> {
+    const subject = new Subject<any>();
+
+    this.http
+      .delete<T>(this.path(pathPart), {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    return subject;
   }
 }
