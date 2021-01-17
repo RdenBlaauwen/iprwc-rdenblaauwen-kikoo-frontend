@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,17 @@ export class ApiInterfaceService {
     return `${this.API_URL}/${pathPart}`;
   }
 
-  constructor(private http: HttpClient) {}
+  private headers(): HttpHeaders {
+    const headers = new HttpHeaders();
+
+    if (this.authService.isAuthenticated) {
+      headers.set('Authorization', 'Bearer ' + this.authService.authToken);
+    }
+
+    return headers;
+  }
+
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public get<T>(pathPart: string): Observable<T> {
     return this.http.get<T>(this.path(pathPart));

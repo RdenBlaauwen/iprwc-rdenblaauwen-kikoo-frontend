@@ -1,84 +1,37 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Credentials, User } from '../models/user';
 import { ApiInterfaceService } from './api-interface.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements CanActivate {
-  private API_URL = 'user/authorize';
+export class AuthService {
+  private API_URL = 'user/authenticate';
 
-  public me = new Subject<User>();
+  private resourceOwner: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
+    null
+  );
 
-  public get authToken(): string {
-    return 'kek';
+  public get isAuthenticated(): boolean {
+    return !!this.resourceOwner.value;
+  }
+
+  public get authToken(): string | null {
+    return localStorage.getItem('kku-token');
   }
 
   private set _authToken(token: string) {
-    console.log(token);
+    localStorage.setItem('kku-token', token);
   }
 
   constructor(private apiInterface: ApiInterfaceService) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-    return !!this.authToken;
-  }
-
-  // public authorize(user: User): Observable<{ user: User; token: string }> {
-  //   return this.http.post<{ user: User; token: string }>(this.API_URL, user);
-  // }
-
-  // public authorize(credentials: Credentials): Observable<User> {
-  //   return new Observable((subscriber) => {
-  //     try {
-  //       this.apiInterface
-  //         .post<{ credentials: User; token: string }>(this.API_URL, credentials)
-  //         .subscribe((auth) => {
-  //           console.log('auth retreived:', auth);
-  //           // this._authToken = auth.token;
-  //           // this.me.next(auth.user);
-  //           // subscriber.next(auth.user);
-  //         });
-  //     } catch (error) {
-  //       subscriber.error(error);
-  //     }
-  //   });
-  // }
-
-  // public authorize(credentials: Credentials): Observable<User> {
-  //   const process = new Observable<User>((subscriber) => {
-  //     try {
-  //       this.apiInterface
-  //         .post<{ user: User; token: string }>(this.API_URL, credentials)
-  //         .subscribe((auth) => {
-  //           this._authToken = auth.token;
-  //           subscriber.next(auth.user);
-  //         });
-  //     } catch (error) {
-  //       subscriber.error(error);
-  //     }
-  //   });
-
-  //   process.subscribe((user) => {
-  //     this.me.next(user);
-  //   });
-
-  //   return process;
-  // }
 
   public authorize(credentials: Credentials): Observable<User> {
     const process = new Observable<User>((subscriber) => {
@@ -99,7 +52,8 @@ export class AuthService implements CanActivate {
     process.subscribe(subject);
 
     subject.subscribe((user) => {
-      this.me.next(user);
+      this.resourceOwner.next(user);
+      console.log('token in localStorage:', this.authToken);
     });
 
     return subject;
