@@ -46,7 +46,7 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
+    if (this.valid) {
       this.userService.post(this.user);
     }
   }

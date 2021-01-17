@@ -22,7 +22,7 @@ export class SigninComponent {
     ]),
   });
 
-  get valid() {
+  get valid(): boolean {
     return this.form.valid;
   }
 
@@ -37,9 +37,6 @@ export class SigninComponent {
     if (!this.form.valid) {
       return;
     }
-    this.authService.authorize(this.credentials).subscribe((data) => {
-      console.log(data);
-    });
-    // this.authService.authorize(this.credentials);
+    this.authService.authorize(this.credentials);
   }
 }

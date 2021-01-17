@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -13,9 +14,7 @@ import { ApiInterfaceService } from './api-interface.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private API_URL = 'user/authenticate';
-
-  private resourceOwner: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
+  public resourceOwner: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
     null
   );
 
@@ -31,13 +30,28 @@ export class AuthService {
     localStorage.setItem('kku-token', token);
   }
 
-  constructor(private apiInterface: ApiInterfaceService) {}
+  private get headers(): HttpHeaders {
+    let headers = new HttpHeaders();
+
+    if (this.isAuthenticated) {
+      headers = headers.set('Authorization', 'Bearer ' + this.authToken);
+    }
+    console.log('extra headers:', headers);
+
+    return headers;
+  }
+
+  constructor(private http: HttpClient) {}
 
   public authorize(credentials: Credentials): Observable<User> {
     const process = new Observable<User>((subscriber) => {
       try {
-        this.apiInterface
-          .post<{ user: User; token: string }>(this.API_URL, credentials)
+        this.http
+          .post<{ user: User; token: string }>(
+            'http://localhost:8080/api/user/authenticate',
+            credentials,
+            { headers: this.headers }
+          )
           .subscribe((auth) => {
             this._authToken = auth.token;
             subscriber.next(auth.user);
@@ -53,7 +67,6 @@ export class AuthService {
 
     subject.subscribe((user) => {
       this.resourceOwner.next(user);
-      console.log('token in localStorage:', this.authToken);
     });
 
     return subject;
