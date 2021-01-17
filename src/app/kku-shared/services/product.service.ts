@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Product } from '../models/product';
+import { ApiInterfaceService } from './api-interface.service';
 // import { Product } from '../models/product';
 // import { Observable } from 'rxjs';
 
@@ -7,23 +10,34 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ProductService {
-  private API_URL = 'http://localhost:8080/api/product';
+  private API_URL = 'product';
 
-  constructor(private http: HttpClient) {}
+  private _products: BehaviorSubject<Product[] | null> = new BehaviorSubject<
+    Product[] | null
+  >(null);
 
-  /**
-   * get
-   */
-  public get(): void {
-    this.http.get(this.API_URL).subscribe((data) => {
-      console.log(data);
-    });
+  // when component accesses (presumably to subscribe to) the products subject,
+  // automatically GET products if the service hasn't done so already
+  public get products(): BehaviorSubject<Product[] | null> {
+    if (!this._products.value) {
+      this.get();
+    }
+
+    return this._products;
   }
 
-  /**
-   * post
-   */
-  // public post(product: Product): Observable<Product> {
-  //   this.http.post(this.API_URL, product);
-  // }
+  constructor(private apiInterface: ApiInterfaceService) {}
+
+  public get(): Subject<Product[]> {
+    const subject = new Subject<Product[]>();
+
+    this.apiInterface.get<Product[]>(this.API_URL).subscribe(subject);
+
+    subject.subscribe((products) => {
+      this._products.next(products);
+      subject.complete();
+    });
+
+    return subject;
+  }
 }
