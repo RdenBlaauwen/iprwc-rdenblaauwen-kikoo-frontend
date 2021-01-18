@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Product } from '../models/product';
 import { ApiInterfaceService } from './api-interface.service';
-// import { Product } from '../models/product';
-// import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
