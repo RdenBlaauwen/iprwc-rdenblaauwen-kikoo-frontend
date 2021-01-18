@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/kku-shared/models/product';
+import { CartService } from 'src/app/kku-shared/services/cart.service';
 import { ProductService } from 'src/app/kku-shared/services/product.service';
 
 @Component({
@@ -8,21 +9,35 @@ import { ProductService } from 'src/app/kku-shared/services/product.service';
   templateUrl: './shop-display.component.html',
   styleUrls: ['./shop-display.component.scss'],
 })
-export class ShopDisplayComponent {
+export class ShopDisplayComponent implements OnDestroy {
   public products: Product[] | null = [];
-  private productSubscription: Subscription;
+  private subscriptions: Subscription[] = [];
 
-  public get productsJson(): string {
-    return JSON.stringify(this.products);
+  //TODO: Is this IQ 4000 move really opaque logic?
+  public set addSubscription(subscription: Subscription) {
+    this.subscriptions.push(subscription);
   }
 
-  constructor(private productService: ProductService) {
-    this.productSubscription = productService.products.subscribe((products) => {
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService
+  ) {
+    this.addSubscription = productService.products.subscribe((products) => {
       this.products = products;
     });
+
+    this.addSubscription = cartService.cart.subscribe((cart) =>
+      console.log(cart)
+    );
   }
 
   onAddToCart(product: Product): void {
-    console.log('added product', product);
+    this.cartService.addProduct(product);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe;
+    });
   }
 }
