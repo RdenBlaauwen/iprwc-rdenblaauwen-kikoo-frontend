@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product } from 'src/app/kku-shared/models/product';
 
 @Component({
@@ -15,6 +15,8 @@ export class ProductComponent {
       'https://cdn.pixabay.com/photo/2014/04/02/14/12/book-306468_1280.png'
     )
   );
+
+  @Input() compact = false;
 
   get formattedPrice(): string {
     if (!this.product.price) {
