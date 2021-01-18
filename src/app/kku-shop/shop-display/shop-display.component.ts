@@ -21,4 +21,8 @@ export class ShopDisplayComponent {
       this.products = products;
     });
   }
+
+  onAddToCart(product: Product): void {
+    console.log('added product', product);
+  }
 }
