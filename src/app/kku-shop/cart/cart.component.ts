@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order, OrderProduct } from 'src/app/kku-shared/models/order';
+import { OrderProduct } from 'src/app/kku-shared/models/order';
 import { Product } from 'src/app/kku-shared/models/product';
 import { CartService } from 'src/app/kku-shared/services/cart.service';
 
@@ -10,7 +10,7 @@ import { CartService } from 'src/app/kku-shared/services/cart.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent {
-  public cart: Order = new Order();
+  public cart: OrderProduct[] = [];
 
   constructor(private cartService: CartService, private router: Router) {
     this.cartService.cart.subscribe((cart) => {
