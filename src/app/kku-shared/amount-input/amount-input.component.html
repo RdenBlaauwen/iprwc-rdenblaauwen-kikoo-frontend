@@ -1,0 +1,17 @@
+<div class="input-group">
+    <div class="input-group-prepend">
+        <button class="btn btn-primary" (click)="decrement()">-</button>
+    </div>
+    <input 
+        kku-stop-event-propagation
+        type="number" 
+        class="form-control" 
+        [min]="min" 
+        [max]="max" 
+        [value]="_amount" 
+        (change)="onChange($event)"
+    >
+    <div class="input-group-append">
+        <button class="btn btn-primary" (click)="increment()">+</button>
+    </div>
+</div>

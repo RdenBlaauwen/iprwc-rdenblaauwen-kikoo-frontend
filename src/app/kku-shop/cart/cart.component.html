@@ -1,1 +1,8 @@
-<p>cart works!</p>
+<div *ngFor="let orderProduct of cart.orderProducts" class="row d-flex align-items-center justify-content-between no-gutters">
+        <kku-product [product]="orderProduct.product" [compact]="true" class="col-5 col-md-7 col-lg-8"></kku-product>
+        <kku-amount-input class="col-4 col-md-3 col-lg-2 p-3" [amount]="orderProduct.amount" (change)="onAmountChange(orderProduct.product,$event)"></kku-amount-input>
+        <div class="col-2 col-md-1 p-3">{{orderProduct.totalPriceFormatted}}</div>
+        <div class="col-1 p-3">
+            <button class="btn btn-sm btn-outline-danger" (click)="onRemoveOrderProduct(orderProduct)">X</button>
+        </div>
+</div>

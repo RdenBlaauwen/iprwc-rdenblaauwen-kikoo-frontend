@@ -25,10 +25,6 @@ export class ShopDisplayComponent implements OnDestroy {
     this.addSubscription = productService.products.subscribe((products) => {
       this.products = products;
     });
-
-    this.addSubscription = cartService.cart.subscribe((cart) =>
-      console.log(cart)
-    );
   }
 
   onAddToCart(product: Product): void {

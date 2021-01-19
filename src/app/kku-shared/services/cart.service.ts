@@ -45,4 +45,28 @@ export class CartService {
 
     this.cart.next(cart);
   }
+
+  public setProductAmount(product: Product, amount: number): void {
+    const cart = this.cart.value;
+
+    const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
+      return orderProduct.product.id === product.id;
+    });
+
+    if (foundOrderProduct) {
+      foundOrderProduct.amount = amount;
+    } else {
+      cart.orderProducts.push(new OrderProduct(product, 1));
+    }
+
+    this.cart.next(cart);
+  }
+  //TODO: add amount validation OR an amount object
+
+  public removeOrderProduct(orderProduct: OrderProduct): void {
+    this.cart.value.orderProducts = R.without(
+      [orderProduct],
+      this.cart.value.orderProducts
+    );
+  }
 }
