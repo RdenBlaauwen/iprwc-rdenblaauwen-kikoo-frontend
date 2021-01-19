@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order, OrderProduct } from 'src/app/kku-shared/models/order';
 import { Product } from 'src/app/kku-shared/models/product';
 import { CartService } from 'src/app/kku-shared/services/cart.service';
@@ -11,7 +12,7 @@ import { CartService } from 'src/app/kku-shared/services/cart.service';
 export class CartComponent {
   public cart: Order = new Order();
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private router: Router) {
     this.cartService.cart.subscribe((cart) => {
       this.cart = cart;
     });
@@ -27,5 +28,13 @@ export class CartComponent {
 
   public onRemoveOrderProduct(orderProduct: OrderProduct): void {
     this.cartService.removeOrderProduct(orderProduct);
+  }
+
+  public onNavigateToShop(): void {
+    this.router.navigate(['catalog']);
+  }
+
+  public onNavigateToCheckout(): void {
+    this.router.navigate(['checkout']);
   }
 }

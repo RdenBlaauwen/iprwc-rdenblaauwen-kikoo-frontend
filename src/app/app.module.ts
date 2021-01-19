@@ -8,9 +8,10 @@ import { KkuDashboardModule } from './kku-dashboard/kku-dashboard.module';
 import { HttpClientModule } from '@angular/common/http';
 import { KkuCustomerModule } from './kku-customer/kku-customer.module';
 import { KkuSharedModule } from './kku-shared/kku-shared.module';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     KkuRoutingModule,
