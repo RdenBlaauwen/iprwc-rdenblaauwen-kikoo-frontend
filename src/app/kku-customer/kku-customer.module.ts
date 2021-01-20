@@ -6,6 +6,7 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
 
 @NgModule({
   declarations: [
@@ -13,8 +14,9 @@ import { SigninSignupComponent } from './signin-signup/signin-signup.component';
     SignupComponent,
     SigninComponent,
     SigninSignupComponent,
+    CustomerFormComponent,
   ],
-  exports: [SigninComponent, SigninSignupComponent],
+  exports: [SigninComponent, SigninSignupComponent, CustomerFormComponent],
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
 })
 export class KkuCustomerModule {}

@@ -1,35 +1,49 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as R from 'ramda';
-import { Order, OrderProduct } from '../models/order';
+import { FrontendOrder, OrderProduct } from '../models/order';
 import { BackendProduct } from '../models/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  public cart: BehaviorSubject<Order> = new BehaviorSubject<Order>(new Order());
+  public cart: BehaviorSubject<OrderProduct[]> = new BehaviorSubject<
+    OrderProduct[]
+  >([]);
+
+  public order: BehaviorSubject<FrontendOrder> = new BehaviorSubject<FrontendOrder>(
+    new FrontendOrder()
+  );
+
+  constructor() {
+    this.cart.subscribe((cart) => {
+      const order = this.order.value;
+      order.orderProducts = cart;
+      this.order.next(order);
+    });
+  }
 
   public addProduct(product: BackendProduct): void {
     const cart = this.cart.value;
 
-    const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
+    const foundOrderProduct = cart.find((orderProduct) => {
       return orderProduct.product._id === product._id;
     });
 
     if (foundOrderProduct) {
       foundOrderProduct.amount++;
     } else {
-      cart.orderProducts.push(new OrderProduct(product, 1));
+      cart.push(new OrderProduct(product, 1));
     }
 
     this.cart.next(cart);
   }
 
   public removeProduct(product: BackendProduct): void {
-    const cart = this.cart.value;
+    let cart = this.cart.value;
 
-    const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
+    const foundOrderProduct = cart.find((orderProduct) => {
       return orderProduct.product._id === product._id;
     });
 
@@ -40,7 +54,7 @@ export class CartService {
     if (foundOrderProduct.amount > 1) {
       foundOrderProduct.amount--;
     } else {
-      cart.orderProducts = R.without([foundOrderProduct], cart.orderProducts);
+      cart = R.without([foundOrderProduct], cart);
     }
 
     this.cart.next(cart);
@@ -49,14 +63,14 @@ export class CartService {
   public setProductAmount(product: BackendProduct, amount: number): void {
     const cart = this.cart.value;
 
-    const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
+    const foundOrderProduct = cart.find((orderProduct) => {
       return orderProduct.product._id === product._id;
     });
 
     if (foundOrderProduct) {
       foundOrderProduct.amount = amount;
     } else {
-      cart.orderProducts.push(new OrderProduct(product, 1));
+      cart.push(new OrderProduct(product, 1));
     }
 
     this.cart.next(cart);
@@ -64,9 +78,9 @@ export class CartService {
   //TODO: add amount validation OR an amount object
 
   public removeOrderProduct(orderProduct: OrderProduct): void {
-    this.cart.value.orderProducts = R.without(
-      [orderProduct],
-      this.cart.value.orderProducts
-    );
+    let cart = this.cart.value;
+    cart = R.without([orderProduct], this.cart.value);
+
+    this.cart.next(cart);
   }
 }

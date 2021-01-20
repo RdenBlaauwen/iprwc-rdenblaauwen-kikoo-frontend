@@ -1,0 +1,60 @@
+<form>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6">
+                    <label for="firstName" class="col-form-label"></label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="firstName"
+                        type="text" 
+                        class="form-control"
+                        [(ngModel)]="firstName"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="lastName" class="col-form-label"></label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="lastName"
+                        type="text" 
+                        class="form-control"
+                        [(ngModel)]="firstName"
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6">
+                    <label for="street" class="col-form-label">Straatnaam</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="street"
+                        type="text" 
+                        class="form-control"
+                        [(ngModel)]="street"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="houseNumber" class="col-form-label">Huisnummer</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="houseNumber"
+                        type="text" 
+                        class="form-control"
+                        [(ngModel)]="houseNumber"
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
