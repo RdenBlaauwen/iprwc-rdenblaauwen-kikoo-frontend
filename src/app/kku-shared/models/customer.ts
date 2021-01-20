@@ -15,11 +15,8 @@ export abstract class Customer {
 }
 
 export class BackendCustomer extends Customer {
-  public get _id(): string {
-    return this.id;
-  }
   constructor(
-    private id: string,
+    public id: string,
     email: string,
     phoneNumber: string,
     houseNumber: number,

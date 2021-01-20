@@ -23,11 +23,8 @@ export class FrontendProduct extends Product {
 }
 
 export class BackendProduct extends Product {
-  public get _id(): string {
-    return this.id;
-  }
   constructor(
-    private id: string,
+    public id: string,
     name: string,
     description: string,
     imageUrl: URL,

@@ -11,7 +11,7 @@ export abstract class User {
 
 export class BackendUser extends User {
   constructor(
-    private id: string,
+    public id: string,
     public isAdmin: boolean,
     username: string,
     email: string,

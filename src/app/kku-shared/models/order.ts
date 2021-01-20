@@ -27,16 +27,9 @@ export abstract class Order {
 }
 
 export class BackendOrder extends Order {
-  public get _id(): string {
-    return this.id;
-  }
-  public get _createdAt(): Date {
-    return this.createdAt;
-  }
-
   constructor(
-    private id: string,
-    private createdAt: Date,
+    public id: string,
+    public createdAt: Date,
     public status: string,
     public updatedAt: Date,
     orderProducts: OrderProduct[],

@@ -28,7 +28,7 @@ export class CartService {
     const cart = this.cart.value;
 
     const foundOrderProduct = cart.find((orderProduct) => {
-      return orderProduct.product._id === product._id;
+      return orderProduct.product.id === product.id;
     });
 
     if (foundOrderProduct) {
@@ -44,7 +44,7 @@ export class CartService {
     let cart = this.cart.value;
 
     const foundOrderProduct = cart.find((orderProduct) => {
-      return orderProduct.product._id === product._id;
+      return orderProduct.product.id === product.id;
     });
 
     if (!foundOrderProduct) {
@@ -64,7 +64,7 @@ export class CartService {
     const cart = this.cart.value;
 
     const foundOrderProduct = cart.find((orderProduct) => {
-      return orderProduct.product._id === product._id;
+      return orderProduct.product.id === product.id;
     });
 
     if (foundOrderProduct) {
