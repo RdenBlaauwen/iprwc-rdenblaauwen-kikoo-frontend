@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../models/user';
+import { FrontendUser } from '../models/user';
 import { ApiInterfaceService } from './api-interface.service';
 
 @Injectable({
@@ -12,9 +10,11 @@ export class UserService {
 
   constructor(private apiInterface: ApiInterfaceService) {}
 
-  public post(user: User): void {
-    this.apiInterface.post<User>(this.API_URL, user).subscribe((data) => {
-      console.log(data);
-    });
+  public post(user: FrontendUser): void {
+    this.apiInterface
+      .post<FrontendUser>(this.API_URL, user)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }

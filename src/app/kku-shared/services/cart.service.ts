@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as R from 'ramda';
 import { Order, OrderProduct } from '../models/order';
-import { Product } from '../models/product';
+import { BackendProduct } from '../models/product';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +10,11 @@ import { Product } from '../models/product';
 export class CartService {
   public cart: BehaviorSubject<Order> = new BehaviorSubject<Order>(new Order());
 
-  public addProduct(product: Product): void {
+  public addProduct(product: BackendProduct): void {
     const cart = this.cart.value;
 
     const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
-      return orderProduct.product.id === product.id;
+      return orderProduct.product._id === product._id;
     });
 
     if (foundOrderProduct) {
@@ -26,11 +26,11 @@ export class CartService {
     this.cart.next(cart);
   }
 
-  public removeProduct(product: Product): void {
+  public removeProduct(product: BackendProduct): void {
     const cart = this.cart.value;
 
     const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
-      return orderProduct.product.id === product.id;
+      return orderProduct.product._id === product._id;
     });
 
     if (!foundOrderProduct) {
@@ -46,11 +46,11 @@ export class CartService {
     this.cart.next(cart);
   }
 
-  public setProductAmount(product: Product, amount: number): void {
+  public setProductAmount(product: BackendProduct, amount: number): void {
     const cart = this.cart.value;
 
     const foundOrderProduct = cart.orderProducts.find((orderProduct) => {
-      return orderProduct.product.id === product.id;
+      return orderProduct.product._id === product._id;
     });
 
     if (foundOrderProduct) {

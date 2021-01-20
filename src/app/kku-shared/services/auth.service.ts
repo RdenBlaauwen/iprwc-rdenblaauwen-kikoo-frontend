@@ -1,20 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Credentials, User } from '../models/user';
-import { ApiInterfaceService } from './api-interface.service';
+import { Credentials, BackendUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public resourceOwner: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
+  public resourceOwner: BehaviorSubject<BackendUser | null> = new BehaviorSubject<BackendUser | null>(
     null
   );
 
@@ -43,11 +36,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  public authorize(credentials: Credentials): Observable<User> {
-    const process = new Observable<User>((subscriber) => {
+  public authorize(credentials: Credentials): Observable<BackendUser> {
+    const process = new Observable<BackendUser>((subscriber) => {
       try {
         this.http
-          .post<{ user: User; token: string }>(
+          .post<{ user: BackendUser; token: string }>(
             'http://localhost:8080/api/user/authenticate',
             credentials,
             { headers: this.headers }
@@ -61,7 +54,7 @@ export class AuthService {
       }
     });
 
-    const subject = new Subject<User>();
+    const subject = new Subject<BackendUser>();
 
     process.subscribe(subject);
 

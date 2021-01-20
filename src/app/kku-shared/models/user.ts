@@ -1,14 +1,35 @@
-import { Customer } from './customer';
+import { BackendCustomer, Customer } from './customer';
 
-export class User {
+export abstract class User {
   constructor(
     public username: string,
-    public isAdmin?: boolean,
-    public id?: string,
-    public password?: string,
-    public email?: string,
-    public customer?: string | Customer
+    public email: string,
+    public customer?: string | Customer,
+    public password?: string
   ) {}
+}
+
+export class BackendUser extends User {
+  constructor(
+    private id: string,
+    public isAdmin: boolean,
+    username: string,
+    email: string,
+    customer?: string | BackendCustomer
+  ) {
+    super(username, email, customer);
+  }
+}
+
+export class FrontendUser extends User {
+  constructor(
+    username = '',
+    email = '',
+    password = '',
+    customer?: string | Customer
+  ) {
+    super(username, email, customer, password);
+  }
 }
 
 export class Credentials {

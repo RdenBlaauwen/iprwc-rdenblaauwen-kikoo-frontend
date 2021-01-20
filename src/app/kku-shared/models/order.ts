@@ -1,8 +1,8 @@
 import { Customer } from './customer';
-import { Product } from './product';
+import { BackendProduct } from './product';
 
 export class OrderProduct {
-  constructor(public product: Product, public amount: number) {}
+  constructor(public product: BackendProduct, public amount: number) {}
 
   public get totalPrice(): number {
     if (!this.product.price) {
@@ -19,13 +19,35 @@ export class OrderProduct {
   }
 }
 
-export class Order {
+export abstract class Order {
   constructor(
     public orderProducts: OrderProduct[] = [],
-    public id?: string,
-    public orderer?: string | Customer,
-    public status?: string,
-    public createdAt?: Date,
-    public updatedAt?: Date
+    public orderer?: string | Customer
   ) {}
+}
+
+export class BackendOrder extends Order {
+  public get _id(): string {
+    return this.id;
+  }
+  public get _createdAt(): Date {
+    return this.createdAt;
+  }
+
+  constructor(
+    private id: string,
+    private createdAt: Date,
+    public status: string,
+    public updatedAt: Date,
+    orderProducts: OrderProduct[],
+    orderer: string | Customer
+  ) {
+    super(orderProducts, orderer);
+  }
+}
+
+export class FrontendOrder extends Order {
+  constructor(orderProducts: OrderProduct[] = [], orderer?: string | Customer) {
+    super(orderProducts, orderer);
+  }
 }

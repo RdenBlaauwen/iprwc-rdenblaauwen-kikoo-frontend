@@ -1,8 +1,7 @@
-import { User } from './user';
+import { BackendUser, User } from './user';
 
-export class Customer {
+export abstract class Customer {
   constructor(
-    public id: string,
     public email: string,
     public phoneNumber: string,
     public houseNumber: number,
@@ -12,4 +11,56 @@ export class Customer {
     public country?: string,
     public user?: string | User
   ) {}
+}
+
+export class BackendCustomer extends Customer {
+  public get _id(): string {
+    return this.id;
+  }
+  constructor(
+    private id: string,
+    email: string,
+    phoneNumber: string,
+    houseNumber: number,
+    postalCode: string,
+    firstName?: string,
+    lastName?: string,
+    country?: string,
+    user?: string | BackendUser
+  ) {
+    super(
+      email,
+      phoneNumber,
+      houseNumber,
+      postalCode,
+      firstName,
+      lastName,
+      country,
+      user
+    );
+  }
+}
+
+export class FrontendCustomer extends Customer {
+  constructor(
+    email = '',
+    phoneNumber = '',
+    houseNumber = 0,
+    postalCode = '',
+    firstName = '',
+    lastName = '',
+    country = '',
+    user?: string | User
+  ) {
+    super(
+      email,
+      phoneNumber,
+      houseNumber,
+      postalCode,
+      firstName,
+      lastName,
+      country,
+      user
+    );
+  }
 }

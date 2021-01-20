@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Product } from 'src/app/kku-shared/models/product';
+import { BackendProduct } from 'src/app/kku-shared/models/product';
 import { CartService } from 'src/app/kku-shared/services/cart.service';
 import { ProductService } from 'src/app/kku-shared/services/product.service';
 
@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/kku-shared/services/product.service';
   styleUrls: ['./shop-display.component.scss'],
 })
 export class ShopDisplayComponent implements OnDestroy {
-  public products: Product[] | null = [];
+  public products: BackendProduct[] | null = [];
   private subscriptions: Subscription[] = [];
 
   //TODO: Is this IQ 4000 move really opaque logic?
@@ -27,7 +27,7 @@ export class ShopDisplayComponent implements OnDestroy {
     });
   }
 
-  onAddToCart(product: Product): void {
+  onAddToCart(product: BackendProduct): void {
     this.cartService.addProduct(product);
   }
 

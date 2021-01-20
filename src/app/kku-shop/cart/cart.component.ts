@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, OrderProduct } from 'src/app/kku-shared/models/order';
-import { Product } from 'src/app/kku-shared/models/product';
+import { BackendProduct } from 'src/app/kku-shared/models/product';
 import { CartService } from 'src/app/kku-shared/services/cart.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class CartComponent {
     return JSON.stringify(this.cart);
   }
 
-  public onAmountChange(product: Product, event: number): void {
+  public onAmountChange(product: BackendProduct, event: number): void {
     this.cartService.setProductAmount(product, event);
   }
 

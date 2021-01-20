@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Product } from '../models/product';
+import { BackendProduct } from '../models/product';
 import { ApiInterfaceService } from './api-interface.service';
 
 @Injectable({
@@ -9,13 +9,13 @@ import { ApiInterfaceService } from './api-interface.service';
 export class ProductService {
   private API_URL = 'product';
 
-  private _products: BehaviorSubject<Product[] | null> = new BehaviorSubject<
-    Product[] | null
-  >(null);
+  private _products: BehaviorSubject<
+    BackendProduct[] | null
+  > = new BehaviorSubject<BackendProduct[] | null>(null);
 
   // when component accesses (presumably to subscribe to) the products subject,
   // automatically GET products if the service hasn't done so already
-  public get products(): BehaviorSubject<Product[] | null> {
+  public get products(): BehaviorSubject<BackendProduct[] | null> {
     if (!this._products.value) {
       this.get();
     }
@@ -25,8 +25,8 @@ export class ProductService {
 
   constructor(private apiInterface: ApiInterfaceService) {}
 
-  public get(): Subject<Product[]> {
-    const subject = this.apiInterface.get<Product[]>(this.API_URL);
+  public get(): Subject<BackendProduct[]> {
+    const subject = this.apiInterface.get<BackendProduct[]>(this.API_URL);
 
     subject.subscribe((products) => {
       this._products.next(products);

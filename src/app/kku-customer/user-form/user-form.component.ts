@@ -2,13 +2,6 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/kku-shared/models/user';
 
-enum AbstractControlStatus {
-  VALID = 'VALID',
-  INVALID = 'INVALID',
-  PENDING = 'PENDING',
-  DISABLED = 'DISABLED',
-}
-
 @Component({
   selector: 'kku-user-form',
   templateUrl: './user-form.component.html',

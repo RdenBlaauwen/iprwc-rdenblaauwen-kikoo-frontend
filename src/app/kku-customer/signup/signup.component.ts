@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/kku-shared/models/user';
+import { FrontendUser } from 'src/app/kku-shared/models/user';
 import { UserService } from 'src/app/kku-shared/services/user.service';
 
 @Component({
@@ -9,14 +9,7 @@ import { UserService } from 'src/app/kku-shared/services/user.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  private user = new User(
-    'KEK',
-    undefined,
-    undefined,
-    undefined,
-    'KEK@KEK.KEK',
-    undefined
-  );
+  private user = new FrontendUser();
 
   public form = new FormGroup({
     username: new FormControl(

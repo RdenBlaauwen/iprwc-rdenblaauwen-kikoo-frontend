@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Product } from 'src/app/kku-shared/models/product';
+import { FrontendProduct } from 'src/app/kku-shared/models/product';
 
 @Component({
   selector: 'kku-product',
@@ -7,14 +7,7 @@ import { Product } from 'src/app/kku-shared/models/product';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent {
-  @Input('product') product: Product = new Product(
-    'Book',
-    undefined,
-    'Lorem ipsum',
-    new URL(
-      'https://cdn.pixabay.com/photo/2014/04/02/14/12/book-306468_1280.png'
-    )
-  );
+  @Input('product') product: FrontendProduct = new FrontendProduct();
 
   @Input() compact = false;
 
