@@ -7,6 +7,7 @@ export class Customer {
     public phoneNumber: string,
     public houseNumber: number,
     public postalCode: string,
+    public street: string,
     public firstName?: string,
     public lastName?: string,
     public country?: string,

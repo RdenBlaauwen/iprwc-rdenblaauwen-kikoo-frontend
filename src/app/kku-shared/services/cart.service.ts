@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as R from 'ramda';
-import { OrderProduct } from '../models/order';
+import { Order, OrderProduct } from '../models/order';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -11,6 +11,18 @@ export class CartService {
   public cart: BehaviorSubject<OrderProduct[]> = new BehaviorSubject<
     OrderProduct[]
   >([]);
+
+  public order: BehaviorSubject<Order> = new BehaviorSubject<Order>(
+    new Order()
+  );
+
+  constructor() {
+    this.cart.subscribe((cart) => {
+      const order = this.order.value;
+      order.orderProducts = cart;
+      this.order.next(order);
+    });
+  }
 
   public addProduct(product: Product): void {
     const cart = this.cart.value;
