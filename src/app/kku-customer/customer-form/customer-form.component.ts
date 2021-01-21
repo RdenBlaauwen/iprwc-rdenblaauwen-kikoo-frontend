@@ -1,11 +1,21 @@
-import { Component, Input } from '@angular/core';
-import { Customer } from 'src/app/kku-shared/models/customer';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Customer, FrontendCustomer } from 'src/app/kku-shared/models/customer';
 
 @Component({
   selector: 'kku-customer-form',
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.scss'],
 })
-export class CustomerFormComponent {
-  @Input() customer?: Customer;
+export class CustomerFormComponent implements OnInit {
+  @Input() customer: Customer = new FrontendCustomer();
+  @Output('kku-change')
+  kkuChange: EventEmitter<Customer> = new EventEmitter<Customer>();
+
+  ngOnInit() {
+    console.log(this.customer);
+  }
+
+  onChange(): void {
+    this.kkuChange.emit(this.customer);
+  }
 }

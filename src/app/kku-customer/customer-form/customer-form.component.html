@@ -1,32 +1,106 @@
-<form>
+<form (change)="onChange()">
     <div class="row">
         <div class="col-6">
             <div class="row">
                 <div class="col-6">
-                    <label for="firstName" class="col-form-label"></label>
+                    <label for="firstName" class="col-form-label">Voornaam</label>
                 </div>
                 <div class="col-6">
                     <input 
                         id="firstName"
                         type="text" 
                         class="form-control"
+                        name="firstName"
+                        [(ngModel)]="customer.firstName"
                     >
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    <label for="lastName" class="col-form-label"></label>
+                    <label for="lastName" class="col-form-label">Achternaam</label>
                 </div>
                 <div class="col-6">
                     <input 
                         id="lastName"
                         type="text" 
                         class="form-control"
+                        name="lastName"
+                        [(ngModel)]="customer.lastName"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="email" class="col-form-label">Email</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="email"
+                        type="email" 
+                        class="form-control"
+                        name="email"
+                        [(ngModel)]="customer.email"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="phoneNumber" class="col-form-label">Telefoonnummer</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="phoneNumber"
+                        type="tel" 
+                        class="form-control"
+                        name="phoneNumber"
+                        [(ngModel)]="customer.phoneNumber"
                     >
                 </div>
             </div>
         </div>
         <div class="col-6">
+            <div class="row">
+                <div class="col-6">
+                    <label for="country" class="col-form-label">Land</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="country"
+                        type="text" 
+                        class="form-control"
+                        name="country"
+                        [(ngModel)]="customer.country"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="city" class="col-form-label">Woonplaats</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="city"
+                        type="text" 
+                        class="form-control"
+                        name="city"
+                        [(ngModel)]="customer.city"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="postalCode" class="col-form-label">Postcode</label>
+                </div>
+                <div class="col-6">
+                    <input 
+                        id="postalCode"
+                        type="text" 
+                        class="form-control"
+                        name="postalCode"
+                        [(ngModel)]="customer.postalCode"
+                    >
+                </div>
+            </div>
             <div class="row">
                 <div class="col-6">
                     <label for="street" class="col-form-label">Straatnaam</label>
@@ -36,6 +110,8 @@
                         id="street"
                         type="text" 
                         class="form-control"
+                        name="street"
+                        [(ngModel)]="customer.street"
                     >
                 </div>
             </div>
@@ -46,8 +122,10 @@
                 <div class="col-6">
                     <input 
                         id="houseNumber"
-                        type="text" 
+                        type="number" 
                         class="form-control"
+                        name="houseNumber"
+                        [(ngModel)]="customer.houseNumber"
                     >
                 </div>
             </div>

@@ -29,7 +29,6 @@ export class AuthService {
     if (this.isAuthenticated) {
       headers = headers.set('Authorization', 'Bearer ' + this.authToken);
     }
-    console.log('extra headers:', headers);
 
     return headers;
   }
@@ -60,6 +59,7 @@ export class AuthService {
 
     subject.subscribe((user) => {
       this.resourceOwner.next(user);
+      console.log('new user', user);
     });
 
     return subject;

@@ -1,2 +1,5 @@
-<p>checkout works!</p>
-<kku-customer-form></kku-customer-form>
+<kku-customer-form [customer]="customer"></kku-customer-form>
+<div class="d-flex align-items-center justify-content-between py-3">
+    <button class="btn btn-primary" (click)="onNavigateToShop()">Terug naar de winkel</button>
+    <button class="btn btn-success" (click)="onOrder()">Plaats Bestelling</button>
+</div>

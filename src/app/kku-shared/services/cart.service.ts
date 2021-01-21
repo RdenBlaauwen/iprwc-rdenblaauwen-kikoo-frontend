@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import * as R from 'ramda';
 import { FrontendOrder, OrderProduct } from '../models/order';
 import { BackendProduct } from '../models/product';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +13,24 @@ export class CartService {
     OrderProduct[]
   >([]);
 
-  public order: BehaviorSubject<FrontendOrder> = new BehaviorSubject<FrontendOrder>(
-    new FrontendOrder()
-  );
+  // public order: BehaviorSubject<FrontendOrder> = new BehaviorSubject<FrontendOrder>(
+  //   new FrontendOrder()
+  // );
 
-  constructor() {
-    this.cart.subscribe((cart) => {
-      const order = this.order.value;
-      order.orderProducts = cart;
-      this.order.next(order);
-    });
+  constructor(private authService: AuthService) {
+    // this.cart.subscribe((cart) => {
+    //   const order = this.order.value;
+    //   order.orderProducts = cart;
+    //   this.order.next(order);
+    // });
+    // this.authService.resourceOwner.subscribe((backendUser) => {
+    //   if (!backendUser || !backendUser.customer) {
+    //     return;
+    //   }
+    //   const order = this.order.value;
+    //   order.orderer = backendUser.customer;
+    //   this.order.next(order);
+    // });
   }
 
   public addProduct(product: BackendProduct): void {

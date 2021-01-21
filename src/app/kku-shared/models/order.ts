@@ -20,6 +20,7 @@ export class OrderProduct {
 }
 
 export abstract class Order {
+  public kek = 'kek';
   constructor(
     public orderProducts: OrderProduct[] = [],
     public orderer?: string | Customer

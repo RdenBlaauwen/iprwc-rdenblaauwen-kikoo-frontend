@@ -14,11 +14,15 @@ export class ApiInterfaceService {
   }
 
   private get headers(): HttpHeaders {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
 
     if (this.authService.isAuthenticated) {
-      headers.set('Authorization', 'Bearer ' + this.authService.authToken);
+      headers = headers.set(
+        'Authorization',
+        'Bearer ' + this.authService.authToken
+      );
     }
+    console.log('headers:', headers, this.authService.authToken);
 
     return headers;
   }

@@ -28,7 +28,6 @@ export class ShopDisplayComponent implements OnDestroy {
   }
 
   onAddToCart(product: BackendProduct): void {
-    console.log(product, product.id);
     this.cartService.addProduct(product);
   }
 
