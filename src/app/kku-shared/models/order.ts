@@ -23,7 +23,7 @@ export abstract class Order {
   public kek = 'kek';
   constructor(
     public orderProducts: OrderProduct[] = [],
-    public orderer?: string | Customer
+    public customer?: string | Customer
   ) {}
 }
 
@@ -34,14 +34,17 @@ export class BackendOrder extends Order {
     public status: string,
     public updatedAt: Date,
     orderProducts: OrderProduct[],
-    orderer: string | Customer
+    customer: string | Customer
   ) {
-    super(orderProducts, orderer);
+    super(orderProducts, customer);
   }
 }
 
 export class FrontendOrder extends Order {
-  constructor(orderProducts: OrderProduct[] = [], orderer?: string | Customer) {
-    super(orderProducts, orderer);
+  constructor(
+    orderProducts: OrderProduct[] = [],
+    customer?: string | Customer
+  ) {
+    super(orderProducts, customer);
   }
 }

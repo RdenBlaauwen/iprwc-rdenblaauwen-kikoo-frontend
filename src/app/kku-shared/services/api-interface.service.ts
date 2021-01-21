@@ -22,7 +22,6 @@ export class ApiInterfaceService {
         'Bearer ' + this.authService.authToken
       );
     }
-    console.log('headers:', headers, this.authService.authToken);
 
     return headers;
   }

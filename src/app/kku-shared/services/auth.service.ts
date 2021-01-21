@@ -59,7 +59,6 @@ export class AuthService {
 
     subject.subscribe((user) => {
       this.resourceOwner.next(user);
-      console.log('new user', user);
     });
 
     return subject;

@@ -28,7 +28,7 @@ export class CartService {
     //     return;
     //   }
     //   const order = this.order.value;
-    //   order.orderer = backendUser.customer;
+    //   order.customer = backendUser.customer;
     //   this.order.next(order);
     // });
   }

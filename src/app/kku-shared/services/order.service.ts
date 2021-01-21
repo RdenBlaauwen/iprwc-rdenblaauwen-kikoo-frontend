@@ -17,12 +17,14 @@ export class OrderService {
     const subject = this.apiInterface.post<Order>(this.API_URL, order);
     subject.pipe(
       map((rawOrder) => {
-        rawOrder.kek = 'KUK';
+        //TODO: implement mapping
         return rawOrder;
       })
     );
-    subject.subscribe((backendOrder) => {
-      console.log(backendOrder);
+    subject.subscribe((order) => {
+      const orders = this.orders.value;
+      orders.push(order);
+      this.orders.next(orders);
     });
 
     return subject;
