@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiInterfaceService {
-  private API_URL = 'http://localhost:8080/api';
+  private API_URL = environment.API_URL;
 
   private path(pathPart: string): string {
     return `${this.API_URL}/${pathPart}`;

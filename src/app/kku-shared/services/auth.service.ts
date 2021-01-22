@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Credentials, BackendUser } from '../models/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class AuthService {
       try {
         this.http
           .post<{ user: BackendUser; token: string }>(
-            'http://localhost:8080/api/user/authenticate',
+            environment.API_URL + 'user/authenticate',
             credentials,
             { headers: this.headers }
           )
