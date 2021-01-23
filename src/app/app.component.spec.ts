@@ -16,10 +16,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  // it(`should have as title 'IKPDM-Rudolph'`, () => {
+  // it(`should have as title 'Kikoo'`, () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('IKPDM-Rudolph');
+  //   expect(app.title).toEqual('Kikoo');
   // });
 
   it('should render title', () => {
@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(
-      'IKPDM-Rudolph app is running!'
+      'Kikoo app is running!'
     );
   });
 });

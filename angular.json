@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "IKPDM-Rudolph": {
+    "Kikoo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -15,12 +15,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "kku",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/IKPDM-Rudolph",
+            "outputPath": "docs/Kikoo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "IKPDM-Rudolph:build"
+            "browserTarget": "Kikoo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "IKPDM-Rudolph:build:production"
+              "browserTarget": "Kikoo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "IKPDM-Rudolph:build"
+            "browserTarget": "Kikoo:build"
           }
         },
         "test": {
@@ -120,11 +120,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "IKPDM-Rudolph:serve"
+            "devServerTarget": "Kikoo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "IKPDM-Rudolph:serve:production"
+              "devServerTarget": "Kikoo:serve:production"
             }
           }
         },
@@ -135,5 +135,5 @@
       }
     }
   },
-  "defaultProject": "IKPDM-Rudolph"
+  "defaultProject": "Kikoo"
 }
