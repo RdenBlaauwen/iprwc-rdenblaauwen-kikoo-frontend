@@ -1,6 +1,9 @@
 {
   "name": "kikoo",
   "version": "0.1.0",
+  "directories": {
+    "output": "../dist/IKPMD-Rudolph"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
