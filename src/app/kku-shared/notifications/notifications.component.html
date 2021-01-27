@@ -1,0 +1,9 @@
+<div class="fixed-bottom">
+    <div *ngFor="let notification of notifications" class="row">
+        <div *ngIf="notification.show" class="col-4 offset-8">
+            <div class="bg-white shadow rounded m-3 p-3" [ngClass]="notification.status">
+                {{notification.message}}
+            </div>
+        </div>
+    </div>
+</div>

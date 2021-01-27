@@ -1,0 +1,26 @@
+$border-width: 2px;
+$border-color-info: #007bff;
+$border-color-processing: #17a2b8;
+$border-color-warning: #ffc107;
+$border-color-success: #28a745;
+$border-color-error: #dc3545;
+
+.info{
+    border: $border-width solid $border-color-info;
+}
+
+.processing{
+    border: $border-width solid $border-color-processing;
+}
+
+.warning{
+    border: $border-width solid $border-color-warning;
+}
+
+.success{
+    border: $border-width solid $border-color-success;
+}
+
+.error{
+    border: $border-width solid $border-color-error;
+}
