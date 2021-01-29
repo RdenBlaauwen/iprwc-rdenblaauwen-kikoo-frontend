@@ -22,9 +22,11 @@ export class ShopDisplayComponent implements OnDestroy {
     private productService: ProductService,
     private cartService: CartService
   ) {
-    this.addSubscription = productService.products.subscribe((products) => {
-      this.products = products;
-    });
+    this.addSubscription = productService.agent.entities.subscribe(
+      (products) => {
+        this.products = products;
+      }
+    );
   }
 
   onAddToCart(product: BackendProduct): void {

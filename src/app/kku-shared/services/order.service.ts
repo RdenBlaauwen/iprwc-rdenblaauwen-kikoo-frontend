@@ -3,12 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { BackendOrder, FrontendOrder } from '../models/order';
 import { EntityAgent } from './entity-agent';
-import {
-  KkuNotification,
-  Status,
-  NotificationService,
-  Duration,
-} from './notification.service';
+import { Status, NotificationService, Duration } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
