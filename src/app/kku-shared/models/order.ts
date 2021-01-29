@@ -1,5 +1,6 @@
 import { Customer } from './customer';
 import { BackendProduct } from './product';
+import { BackendEntity } from './types';
 
 export class OrderProduct {
   constructor(public product: BackendProduct, public amount: number) {}
@@ -27,7 +28,7 @@ export abstract class Order {
   ) {}
 }
 
-export class BackendOrder extends Order {
+export class BackendOrder extends Order implements BackendEntity {
   constructor(
     public id: string,
     public createdAt: Date,

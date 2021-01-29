@@ -1,0 +1,136 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
+import * as R from 'ramda';
+import { AnyObject, BackendEntity } from '../models/types';
+import { OperationState } from './operation-state';
+
+const setPropsTo = function (original: AnyObject, newProps: AnyObject) {
+  Object.keys(newProps).forEach((propName: string) => {
+    original[propName] = newProps[propName];
+  });
+  return original;
+};
+
+/**
+ * generic wrapper for a list of objects of and entity type
+ * communicates with API
+ */
+export class EntityAgent<F, B extends BackendEntity> {
+  public entities: BehaviorSubject<B[]> = new BehaviorSubject<B[]>([]);
+  public state: BehaviorSubject<OperationState> = new BehaviorSubject<OperationState>(
+    OperationState.IDLE
+  );
+
+  private get authToken(): string | null {
+    return localStorage.getItem('kku-token');
+  }
+
+  private get headers(): HttpHeaders {
+    let headers = new HttpHeaders();
+
+    if (this.authToken) {
+      headers = headers.set('Authorization', 'Bearer ' + this.authToken);
+    }
+
+    return headers;
+  }
+
+  constructor(
+    private http: HttpClient,
+    private uri: string,
+    public eager: boolean = false
+  ) {
+    this.eager && this.retrieve();
+  }
+
+  public retrieve(): Subject<B[]> {
+    this.state.next(OperationState.IN_PROGRESS);
+    const subject = new Subject<B[]>();
+
+    this.http
+      .get<B[]>(this.uri, {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    subject.subscribe((entity) => {
+      this.state.next(OperationState.LOADED);
+      this.entities.next(entity);
+    });
+
+    return subject;
+  }
+
+  public add(entity: F): Subject<B> {
+    this.state.next(OperationState.IN_PROGRESS);
+    const subject = new Subject<B>();
+
+    this.http
+      .post<B>(this.uri, entity, {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    subject.subscribe((entity) => {
+      this.state.next(OperationState.SUCCESS);
+      const entityList = this.entities.value;
+      entityList.push(entity);
+      this.entities.next(entityList);
+    });
+
+    return subject;
+  }
+
+  public update(entity: F): Subject<B> {
+    this.state.next(OperationState.IN_PROGRESS);
+    const subject = new Subject<B>();
+
+    this.http
+      .patch<B>(this.uri, entity, {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    subject.subscribe((newEntity: B) => {
+      this.state.next(OperationState.SUCCESS);
+      const entityList = this.entities.value;
+      const entity = entityList.find((entity) => {
+        return entity.id === newEntity.id;
+      });
+
+      // if entity already present in store,
+      // set existing entities' equal to backend entities'
+      // otherwise, add anyways (should never happen)
+      if (entity) {
+        setPropsTo(entity, newEntity);
+      } else {
+        //TODO: consider throwing error instead.
+        entityList.push(newEntity);
+      }
+      this.entities.next(entityList);
+    });
+
+    return subject;
+  }
+
+  public delete(entity: B): Subject<any> {
+    this.state.next(OperationState.IN_PROGRESS);
+    const uri = `${this.uri}/${entity.id}`;
+    const subject = new Subject<any>();
+
+    this.http
+      .delete(uri, {
+        headers: this.headers,
+      })
+      .subscribe(subject);
+
+    subject.subscribe(() => {
+      this.state.next(OperationState.SUCCESS);
+      let entityList = this.entities.value;
+      entityList = R.without([entity], entityList);
+      this.entities.next(entityList);
+    });
+
+    return subject;
+  }
+}

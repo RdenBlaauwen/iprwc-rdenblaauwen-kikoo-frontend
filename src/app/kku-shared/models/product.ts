@@ -1,3 +1,5 @@
+import { BackendEntity } from './types';
+
 export abstract class Product {
   constructor(
     public name: string,
@@ -22,7 +24,7 @@ export class FrontendProduct extends Product {
   }
 }
 
-export class BackendProduct extends Product {
+export class BackendProduct extends Product implements BackendEntity {
   constructor(
     public id: string,
     name: string,

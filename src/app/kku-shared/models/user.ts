@@ -1,4 +1,5 @@
 import { BackendCustomer, Customer } from './customer';
+import { BackendEntity } from './types';
 
 export abstract class User {
   constructor(
@@ -9,7 +10,7 @@ export abstract class User {
   ) {}
 }
 
-export class BackendUser extends User {
+export class BackendUser extends User implements BackendEntity {
   constructor(
     public id: string,
     public isAdmin: boolean,

@@ -1,3 +1,4 @@
+import { BackendEntity } from './types';
 import { BackendUser, User } from './user';
 
 export abstract class Customer {
@@ -15,7 +16,7 @@ export abstract class Customer {
   ) {}
 }
 
-export class BackendCustomer extends Customer {
+export class BackendCustomer extends Customer implements BackendEntity {
   constructor(
     public id: string,
     email: string,
