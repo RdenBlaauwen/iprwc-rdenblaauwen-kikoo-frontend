@@ -1,30 +1,44 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BackendOrder, FrontendOrder, Order } from '../models/order';
-import { ApiInterfaceService } from './api-interface.service';
+import { Subject } from 'rxjs';
+import { BackendOrder, FrontendOrder } from '../models/order';
+import { EntityAgent } from './entity-agent';
+import {
+  KkuNotification,
+  Status,
+  NotificationService,
+  Duration,
+} from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  private API_URL = 'order';
-  public orders: BehaviorSubject<Order[]> = new BehaviorSubject<Order[]>([]);
+  public agent: EntityAgent<FrontendOrder, BackendOrder>;
 
-  constructor(private apiInterface: ApiInterfaceService) {}
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationService
+  ) {
+    this.agent = new EntityAgent<FrontendOrder, BackendOrder>(http, 'order');
+  }
 
-  public post(order: FrontendOrder): Subject<Order> {
-    const subject = this.apiInterface.post<Order>(this.API_URL, order);
-    subject.pipe(
-      map((rawOrder) => {
-        //TODO: implement mapping
-        return rawOrder;
-      })
+  public post(order: FrontendOrder): Subject<BackendOrder> {
+    const notification = this.notificationService.create(
+      'Bestelling aan het verwerken...',
+      Status.PROCESSING
     );
-    subject.subscribe((order) => {
-      const orders = this.orders.value;
-      orders.push(order);
-      this.orders.next(orders);
+
+    const subject = this.agent.add(order);
+
+    subject.subscribe({
+      next: () => {
+        notification.update(
+          `Bestelling geplaatst`,
+          Status.SUCCESS,
+          Duration.LONG
+        );
+      },
     });
 
     return subject;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   KkuNotification,
-  KkuNotificationStatus,
+  Status,
   NotificationService,
 } from '../services/notification.service';
 

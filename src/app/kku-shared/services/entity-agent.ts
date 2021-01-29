@@ -3,6 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import * as R from 'ramda';
 import { AnyObject, BackendEntity } from '../models/types';
 import { OperationState } from './operation-state';
+import { environment } from 'src/environments/environment';
 
 const setPropsTo = function (original: AnyObject, newProps: AnyObject) {
   Object.keys(newProps).forEach((propName: string) => {
@@ -16,6 +17,7 @@ const setPropsTo = function (original: AnyObject, newProps: AnyObject) {
  * communicates with API
  */
 export class EntityAgent<F, B extends BackendEntity> {
+  public uri: string;
   public entities: BehaviorSubject<B[]> = new BehaviorSubject<B[]>([]);
   public state: BehaviorSubject<OperationState> = new BehaviorSubject<OperationState>(
     OperationState.IDLE
@@ -37,9 +39,10 @@ export class EntityAgent<F, B extends BackendEntity> {
 
   constructor(
     private http: HttpClient,
-    private uri: string,
+    path: string,
     public eager: boolean = false
   ) {
+    this.uri = `${environment.API_URL}/${path}`;
     this.eager && this.retrieve();
   }
 

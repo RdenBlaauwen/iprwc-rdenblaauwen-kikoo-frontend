@@ -1,27 +1,44 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { FrontendUser } from '../models/user';
-import { ApiInterfaceService } from './api-interface.service';
+import { BackendUser, FrontendUser } from '../models/user';
+import { EntityAgent } from './entity-agent';
+import {
+  KkuNotification,
+  Status,
+  NotificationService,
+  Duration,
+} from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private API_URL = 'user';
+  public agent: EntityAgent<FrontendUser, BackendUser>;
 
-  public users: BehaviorSubject<FrontendUser[]> = new BehaviorSubject<
-    FrontendUser[]
-  >([]);
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationService
+  ) {
+    this.agent = new EntityAgent<FrontendUser, BackendUser>(http, 'user');
+  }
 
-  constructor(private apiInterface: ApiInterfaceService) {}
+  public add(user: FrontendUser): Subject<BackendUser> {
+    const notification = this.notificationService.create(
+      'Gebruiker aan het opslaan...',
+      Status.PROCESSING
+    );
 
-  public post(user: FrontendUser): Subject<FrontendUser> {
-    const subject = this.apiInterface.post<FrontendUser>(this.API_URL, user);
+    const subject = this.agent.add(user);
 
-    subject.subscribe((data) => {
-      const users = this.users.value;
-      users.push(data);
-      this.users.next(users);
+    subject.subscribe({
+      next: (user) => {
+        notification.update(
+          `Gebruiker '${user.username}' aangemaakt!`,
+          Status.SUCCESS,
+          Duration.SHORT
+        );
+      },
     });
     return subject;
   }

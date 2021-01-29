@@ -3,6 +3,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Credentials, BackendUser } from '../models/user';
 import { environment } from '../../../environments/environment';
+import {
+  KkuNotification,
+  Status,
+  NotificationService,
+  Duration,
+} from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,14 +40,22 @@ export class AuthService {
     return headers;
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationService
+  ) {}
 
   public authorize(credentials: Credentials): Observable<BackendUser> {
+    const notification = this.notificationService.create(
+      'In aan het loggen...',
+      Status.PROCESSING
+    );
+
     const process = new Observable<BackendUser>((subscriber) => {
       try {
         this.http
           .post<{ user: BackendUser; token: string }>(
-            environment.API_URL + 'user/authenticate',
+            `${environment.API_URL}/user/authenticate`,
             credentials,
             { headers: this.headers }
           )
@@ -60,6 +74,11 @@ export class AuthService {
 
     subject.subscribe((user) => {
       this.resourceOwner.next(user);
+      notification.update(
+        `Ingelogd als '${user.username}'`,
+        Status.SUCCESS,
+        Duration.SHORT
+      );
     });
 
     return subject;

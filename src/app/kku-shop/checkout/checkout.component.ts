@@ -32,7 +32,7 @@ export class CheckoutComponent {
     });
   }
 
-  onOrder() {
+  public onOrder() {
     const cart = this.cartService.cart.value;
     const order = new FrontendOrder(cart, this.customer);
     this.orderService.post(order);
