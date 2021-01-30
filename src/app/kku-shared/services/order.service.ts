@@ -66,4 +66,32 @@ export class OrderService {
 
     return subject;
   }
+
+  public delete(order: BackendOrder): Subject<any> {
+    const notification = this.notificationService.create(
+      'Bestelling aan het verwijderen...',
+      Status.PROCESSING
+    );
+
+    const subject = this.agent.delete(order);
+
+    subject.subscribe({
+      next: () => {
+        notification.update(
+          `Bestelling verwijderd!`,
+          Status.SUCCESS,
+          Duration.SHORT
+        );
+      },
+      error: () => {
+        notification.update(
+          `Er is iets mis gegaan`,
+          Status.ERROR,
+          Duration.LONG
+        );
+      },
+    });
+
+    return subject;
+  }
 }

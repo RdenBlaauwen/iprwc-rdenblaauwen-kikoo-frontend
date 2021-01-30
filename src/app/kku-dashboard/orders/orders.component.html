@@ -19,8 +19,16 @@
                 </div>
             </th>
             <th>{{order.createdAt | date:"d/M/yy"}}</th>
-            <th><button class="btn btn-sm" (click)="onEdit(order)">U</button></th>
-            <th><button class="btn btn-sm">D</button></th>
+            <th>
+                <button class="btn btn-sm" (click)="onEdit(order)">
+                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                </button>
+            </th>
+            <th>
+                <button class="btn btn-sm" (click)="onDelete(order)">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </th>
         </tr>
     </tbody>
 </table>
