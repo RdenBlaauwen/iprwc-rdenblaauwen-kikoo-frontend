@@ -20,6 +20,15 @@ export class OrderProduct {
   }
 }
 
+export enum Status {
+  PENDING = 'PENDING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  BEING_DELIVERED = 'BEING_DELIVERED',
+  DELIVERED = 'DELIVERED',
+  CANCELLED = 'CANCELLED',
+  REFUNDED = 'REFUNDED',
+}
+
 export abstract class Order {
   public kek = 'kek';
   constructor(
@@ -32,7 +41,7 @@ export class BackendOrder extends Order implements BackendEntity {
   constructor(
     public id: string,
     public createdAt: Date,
-    public status: string,
+    public status: Status,
     public updatedAt: Date,
     orderProducts: OrderProduct[],
     customer: string | Customer

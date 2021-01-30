@@ -1,3 +1,10 @@
 :host{
     flex-grow: 1;
+
+    *::ng-deep {
+        *:disabled{
+            color: black !important;
+        }
+    }
 }
+

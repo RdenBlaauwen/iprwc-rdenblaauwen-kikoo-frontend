@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, onErrorResumeNext, Subject } from 'rxjs';
-import {
-  BackendOrder,
-  Order,
-  OrderProduct,
-} from 'src/app/kku-shared/models/order';
+import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { BackendOrder, Status } from 'src/app/kku-shared/models/order';
 import { OrderService } from 'src/app/kku-shared/services/order.service';
 
 @Component({
@@ -17,7 +13,30 @@ export class OrdersComponent {
     return this.orderService.agent.entities;
   }
 
+  private orderBeingEdited?: BackendOrder;
+
+  public get statusOptions(): Array<string> {
+    const entries = Object.entries(Status).filter((key) => isNaN(Number(key)));
+    return entries.map((entry) => entry[1]);
+  }
+
   constructor(private orderService: OrderService) {
     this.orderService.agent.retrieve();
+  }
+
+  public isEdited(order: BackendOrder): boolean {
+    if (this.orderBeingEdited && this.orderBeingEdited.id === order.id) {
+      return true;
+    }
+    return false;
+  }
+
+  public onEdit(order: BackendOrder): void {
+    if (this.orderBeingEdited && this.orderBeingEdited.id === order.id) {
+      this.orderService.update(this.orderBeingEdited);
+      this.orderBeingEdited = undefined;
+      return;
+    }
+    this.orderBeingEdited = order;
   }
 }

@@ -4,7 +4,6 @@
             <th>Klant</th>
             <th>Status</th>
             <th>Gemaakt op</th>
-            <th>Geupdatet op</th>
             <th></th>
             <th></th>
         </tr>
@@ -12,10 +11,15 @@
     <tbody>
         <tr *ngFor="let order of orders | async">
             <th>{{order.customer}}</th>
-            <th>{{order.status}}</th>
+            <th>
+                <div class="input-group input-group-sm">
+                    <select class="custom-select" [(ngModel)]="order.status" [disabled]="!isEdited(order)">
+                        <option *ngFor="let option of statusOptions" [ngValue]="option">{{option}}</option>
+                    </select>
+                </div>
+            </th>
             <th>{{order.createdAt | date:"d/M/yy"}}</th>
-            <th>{{order.updatedAt | date:"d/M/yy"}}</th>
-            <th><button class="btn btn-sm">U</button></th>
+            <th><button class="btn btn-sm" (click)="onEdit(order)">U</button></th>
             <th><button class="btn btn-sm">D</button></th>
         </tr>
     </tbody>

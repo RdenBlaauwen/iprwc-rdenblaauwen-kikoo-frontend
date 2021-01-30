@@ -38,4 +38,32 @@ export class OrderService {
 
     return subject;
   }
+
+  public update(order: BackendOrder): Subject<BackendOrder> {
+    const notification = this.notificationService.create(
+      'Bestelling aan het updaten...',
+      Status.PROCESSING
+    );
+
+    const subject = this.agent.update(order);
+
+    subject.subscribe({
+      next: () => {
+        notification.update(
+          `Bestelling geupdatet!`,
+          Status.SUCCESS,
+          Duration.SHORT
+        );
+      },
+      error: () => {
+        notification.update(
+          `Er is iets mis gegaan`,
+          Status.ERROR,
+          Duration.LONG
+        );
+      },
+    });
+
+    return subject;
+  }
 }
