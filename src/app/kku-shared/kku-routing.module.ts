@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SigninSignupComponent } from '../kku-customer/signin-signup/signin-signup.component';
+import { CustomersComponent } from '../kku-dashboard/customers/customers.component';
 import { DashboardComponent } from '../kku-dashboard/dashboard/dashboard.component';
 import { OrdersComponent } from '../kku-dashboard/orders/orders.component';
 import { CartComponent } from '../kku-shop/cart/cart.component';
@@ -15,7 +16,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    children: [{ path: 'orders', component: OrdersComponent }],
+    children: [
+      { path: 'orders', component: OrdersComponent },
+      { path: 'customers', component: CustomersComponent },
+    ],
   },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   // { path: 'signup', component: '', outlit: 'modal' }

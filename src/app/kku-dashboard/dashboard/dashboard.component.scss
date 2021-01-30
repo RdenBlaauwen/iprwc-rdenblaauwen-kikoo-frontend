@@ -2,8 +2,9 @@
     flex-grow: 1;
 
     *::ng-deep {
-        *:disabled{
-            color: black !important;
+        .form-control:disabled{
+            border-color: transparent;
+            background-color: transparent;
         }
         .btn-sm,.input-group-sm{
             font-size: 1rem !important;

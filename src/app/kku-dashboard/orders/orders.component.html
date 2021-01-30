@@ -12,11 +12,9 @@
         <tr *ngFor="let order of orders | async">
             <th>{{order.customer}}</th>
             <th>
-                <div class="input-group input-group-sm">
-                    <select class="custom-select" [(ngModel)]="order.status" [disabled]="!isEdited(order)">
-                        <option *ngFor="let option of statusOptions" [ngValue]="option">{{option}}</option>
-                    </select>
-                </div>
+                <select class="form-control form-control-sm" [(ngModel)]="order.status" [disabled]="!isEdited(order)">
+                    <option *ngFor="let option of statusOptions" [ngValue]="option">{{option}}</option>
+                </select>
             </th>
             <th>{{order.createdAt | date:"d/M/yy"}}</th>
             <th>

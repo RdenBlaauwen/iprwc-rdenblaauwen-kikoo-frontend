@@ -5,9 +5,10 @@ import { OrdersComponent } from './orders/orders.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CustomersComponent } from './customers/customers.component';
 
 @NgModule({
-  declarations: [DashboardComponent, OrdersComponent],
+  declarations: [DashboardComponent, OrdersComponent, CustomersComponent],
   exports: [DashboardComponent],
   imports: [CommonModule, RouterModule, FormsModule, FontAwesomeModule],
 })

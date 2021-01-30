@@ -10,8 +10,9 @@ import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent {
-  faPencilAlt = faPencilAlt;
-  faTrash = faTrash;
+  public faPencilAlt = faPencilAlt;
+  public faTrash = faTrash;
+
   public get orders(): BehaviorSubject<BackendOrder[]> {
     return this.orderService.agent.entities;
   }
