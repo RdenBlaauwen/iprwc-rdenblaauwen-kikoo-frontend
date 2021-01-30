@@ -1,1 +1,2 @@
 - [enable https](https://stackoverflow.com/questions/39210467/get-angular-cli-to-ng-serve-over-https)
+- [Use simpler way of implementing FA](https://github.com/FortAwesome/angular-fontawesome/blob/38c999e72e23c096f2938c5151a942e1df1d4f02/docs/usage/icon-library.md)

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { KkuCustomerModule } from './kku-customer/kku-customer.module';
 import { KkuSharedModule } from './kku-shared/kku-shared.module';
 import { HeaderComponent } from './header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -19,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
     KkuDashboardModule,
     HttpClientModule,
     KkuCustomerModule,
+    FontAwesomeModule,
     KkuSharedModule,
   ],
   bootstrap: [AppComponent],

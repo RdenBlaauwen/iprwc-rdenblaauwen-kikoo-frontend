@@ -1,0 +1,12 @@
+$dimensions: 39px;
+:host{
+    button {
+        height: $dimensions;
+        width:  $dimensions;
+
+        .counter{
+            color:black;
+            font-weight: bold;
+        }
+    }
+}

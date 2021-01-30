@@ -7,6 +7,7 @@ import { KkuSharedModule } from '../kku-shared/kku-shared.module';
 import { CartWidgetComponent } from './cart/cart-widget/cart-widget.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { KkuCustomerModule } from '../kku-customer/kku-customer.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,11 @@ import { KkuCustomerModule } from '../kku-customer/kku-customer.module';
     CheckoutComponent,
   ],
   exports: [ShopDisplayComponent, CartComponent, CartWidgetComponent],
-  imports: [CommonModule, KkuSharedModule, KkuCustomerModule],
+  imports: [
+    CommonModule,
+    KkuSharedModule,
+    KkuCustomerModule,
+    FontAwesomeModule,
+  ],
 })
 export class KkuShopModule {}
