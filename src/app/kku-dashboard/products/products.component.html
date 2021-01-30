@@ -1,3 +1,14 @@
+<div class="d-flex mb-3 justify-content-between">
+    <button *ngIf="!productBeingCreated" class="btn btn-sm btn-outline-primary" (click)="onStartCreate()">
+        <fa-icon [icon]="faPlus"></fa-icon> Nieuw product
+    </button>
+    <button *ngIf="productBeingCreated" class="btn btn-sm btn-primary" (click)="onFinishCreate()">
+        <fa-icon [icon]="faSave"></fa-icon> Opslaan
+    </button>
+    <button *ngIf="productBeingCreated" class="btn btn-sm btn-warning" (click)="onCancelCreate()">
+        <fa-icon [icon]="faTimes"></fa-icon> Annuleer
+    </button>
+</div>
 <table class="table table-striped table-sm">
     <thead>
         <tr>
@@ -11,6 +22,49 @@
         </tr>
     </thead>
     <tbody>
+        <tr *ngIf="productBeingCreated">
+            <td>
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm" 
+                    [(ngModel)]="productBeingCreated.name" 
+                >
+            </td>
+            <td>
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm" 
+                    [(ngModel)]="productBeingCreated.description" 
+                >
+            </td>
+            <td>
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm" 
+                    [(ngModel)]="productBeingCreated.imageUrl" 
+                >
+            </td>
+            <td>
+                <input 
+                    type="number"
+                    step="1"
+                    min="0"
+                    class="form-control form-control-sm" 
+                    [(ngModel)]="productBeingCreated.stock" 
+                >
+            </td>
+            <td>
+                <input 
+                    type="number" 
+                    step="0.01"
+                    min="0"
+                    class="form-control form-control-sm" 
+                    [(ngModel)]="productBeingCreated.price" 
+                >
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
         <tr *ngFor="let product of products | async">
             <td>
                 <input 

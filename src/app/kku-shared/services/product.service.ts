@@ -22,18 +22,46 @@ export class ProductService {
     );
   }
 
+  public add(product: FrontendProduct): Subject<BackendProduct> {
+    const notification = this.notificationService.create(
+      'Product aan het aanmaken...',
+      Status.PROCESSING
+    );
+
+    const subject = this.agent.add(product);
+
+    subject.subscribe({
+      next: (product) => {
+        notification.update(
+          `Product '${product.name}' aangemaakt!`,
+          Status.SUCCESS,
+          Duration.SHORT
+        );
+      },
+      error: () => {
+        notification.update(
+          `Er is iets mis gegaan`,
+          Status.ERROR,
+          Duration.LONG
+        );
+      },
+    });
+
+    return subject;
+  }
+
   public update(product: BackendProduct): Subject<BackendProduct> {
     const notification = this.notificationService.create(
-      'Product aan het updaten...',
+      `Product '${product.name}' aan het updaten...`,
       Status.PROCESSING
     );
 
     const subject = this.agent.update(product);
 
     subject.subscribe({
-      next: () => {
+      next: (product) => {
         notification.update(
-          `Product geupdatet!`,
+          `Product '${product.name}' geupdatet!`,
           Status.SUCCESS,
           Duration.SHORT
         );
@@ -52,7 +80,7 @@ export class ProductService {
 
   public delete(product: BackendProduct): Subject<BackendProduct> {
     const notification = this.notificationService.create(
-      'Product aan het updaten...',
+      `Product '${product.name}' aan het verwijderen...`,
       Status.PROCESSING
     );
 
@@ -61,7 +89,7 @@ export class ProductService {
     subject.subscribe({
       next: () => {
         notification.update(
-          `Product geupdatet!`,
+          `Product '${product.name}' verwijderd!`,
           Status.SUCCESS,
           Duration.SHORT
         );
