@@ -5,9 +5,14 @@
         .form-control:disabled{
             border-color: transparent;
             background-color: transparent;
+            padding:0;
         }
         .btn-sm,.input-group-sm{
             font-size: 1rem !important;
+        }
+        table td {
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
     }
 }

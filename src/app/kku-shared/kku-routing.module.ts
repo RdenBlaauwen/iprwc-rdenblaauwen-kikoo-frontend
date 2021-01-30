@@ -4,6 +4,7 @@ import { SigninSignupComponent } from '../kku-customer/signin-signup/signin-sign
 import { CustomersComponent } from '../kku-dashboard/customers/customers.component';
 import { DashboardComponent } from '../kku-dashboard/dashboard/dashboard.component';
 import { OrdersComponent } from '../kku-dashboard/orders/orders.component';
+import { ProductsComponent } from '../kku-dashboard/products/products.component';
 import { CartComponent } from '../kku-shop/cart/cart.component';
 import { CheckoutComponent } from '../kku-shop/checkout/checkout.component';
 import { ShopDisplayComponent } from '../kku-shop/shop-display/shop-display.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     children: [
       { path: 'orders', component: OrdersComponent },
       { path: 'customers', component: CustomersComponent },
+      { path: 'products', component: ProductsComponent },
     ],
   },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
