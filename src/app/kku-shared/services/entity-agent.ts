@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as R from 'ramda';
 import { AnyObject, BackendEntity } from '../models/types';
 import { OperationState } from './operation-state';
@@ -18,6 +19,7 @@ const setPropsTo = function (original: AnyObject, newProps: AnyObject) {
  */
 export class EntityAgent<F, B extends BackendEntity> {
   public uri: string;
+
   public entities: BehaviorSubject<B[]> = new BehaviorSubject<B[]>([]);
   public state: BehaviorSubject<OperationState> = new BehaviorSubject<OperationState>(
     OperationState.IDLE
@@ -40,7 +42,10 @@ export class EntityAgent<F, B extends BackendEntity> {
   constructor(
     private http: HttpClient,
     path: string,
-    public eager: boolean = false
+    public eager: boolean = false,
+    private fixer: (value: B) => B = (el) => {
+      return el;
+    }
   ) {
     this.uri = `${environment.API_URL}/${path}`;
     this.eager && this.retrieve();
@@ -54,6 +59,11 @@ export class EntityAgent<F, B extends BackendEntity> {
       .get<B[]>(this.uri, {
         headers: this.headers,
       })
+      .pipe(
+        map((entities: B[]) => {
+          return entities.map(this.fixer);
+        })
+      )
       .subscribe(subject);
 
     subject.subscribe((entity) => {
@@ -72,6 +82,7 @@ export class EntityAgent<F, B extends BackendEntity> {
       .post<B>(this.uri, entity, {
         headers: this.headers,
       })
+      .pipe(map(this.fixer))
       .subscribe(subject);
 
     subject.subscribe((entity) => {
@@ -92,6 +103,7 @@ export class EntityAgent<F, B extends BackendEntity> {
       .patch<B>(this.uri, entity, {
         headers: this.headers,
       })
+      .pipe(map(this.fixer))
       .subscribe(subject);
 
     subject.subscribe((newEntity: B) => {

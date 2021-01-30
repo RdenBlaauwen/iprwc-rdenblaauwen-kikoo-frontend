@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="col-3 bg-light">
+            <div class="row">
+                <button routerLink="orders" class="col btn btn-light">
+                    Orders
+                </button>
+            </div>
+        </div>
+        <div class="col-9 py-2">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

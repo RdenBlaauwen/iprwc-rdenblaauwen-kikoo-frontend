@@ -1,11 +1,13 @@
-<div class="row">
-    <div *ngFor="let product of products" class="col-12">
-        <kku-product [product]="product" class="mb-4">
-            <div class="p-3 d-flex flex-row-reverse justify-content-between">
-                <button class="btn btn-primary" (click)="onAddToCart(product)">
-                    Add to cart
-                </button>
-            </div>
-        </kku-product>
+<div class="container pt-5">
+    <div class="row">
+        <div *ngFor="let product of products" class="col-12">
+            <kku-product [product]="product" class="mb-4">
+                <div class="p-3 d-flex flex-row-reverse justify-content-between">
+                    <button class="btn btn-primary" (click)="onAddToCart(product)">
+                        Add to cart
+                    </button>
+                </div>
+            </kku-product>
+        </div>
     </div>
 </div>
