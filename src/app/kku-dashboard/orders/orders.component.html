@@ -1,1 +1,22 @@
-<p>orders works!</p>
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Klant</th>
+            <th>Status</th>
+            <th>Gemaakt op</th>
+            <th>Geupdatet op</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders | async">
+            <th>{{order.customer}}</th>
+            <th>{{order.status}}</th>
+            <th>{{order.createdAt | date:"d/M/yy"}}</th>
+            <th>{{order.updatedAt | date:"d/M/yy"}}</th>
+            <th><button class="btn btn-sm">U</button></th>
+            <th><button class="btn btn-sm">D</button></th>
+        </tr>
+    </tbody>
+</table>
