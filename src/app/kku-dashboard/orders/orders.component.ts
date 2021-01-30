@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import * as R from 'ramda';
 import { BackendOrder, Status } from 'src/app/kku-shared/models/order';
 import { OrderService } from 'src/app/kku-shared/services/order.service';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +29,14 @@ export class OrdersComponent {
     this.orderService.agent.retrieve();
   }
 
-  public isEdited(order: BackendOrder): boolean {
+  public swapIfEdited(order: BackendOrder): BackendOrder {
+    if (this.beingEdited(order) && this.orderBeingEdited) {
+      return this.orderBeingEdited;
+    }
+    return order;
+  }
+
+  public beingEdited(order: BackendOrder): boolean {
     if (this.orderBeingEdited && this.orderBeingEdited.id === order.id) {
       return true;
     }
@@ -37,11 +45,12 @@ export class OrdersComponent {
 
   public onEdit(order: BackendOrder): void {
     if (this.orderBeingEdited && this.orderBeingEdited.id === order.id) {
-      this.orderService.update(this.orderBeingEdited);
-      this.orderBeingEdited = undefined;
+      this.orderService.update(this.orderBeingEdited).subscribe(() => {
+        this.orderBeingEdited = undefined;
+      });
       return;
     }
-    this.orderBeingEdited = order;
+    this.orderBeingEdited = R.clone(order);
   }
 
   public onDelete(order: BackendOrder): void {

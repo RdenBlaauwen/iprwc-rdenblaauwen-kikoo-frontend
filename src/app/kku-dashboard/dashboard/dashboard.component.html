@@ -1,6 +1,6 @@
 <div class="container-fluid h-100">
     <div class="row h-100">
-        <div class="col-3 bg-light">
+        <div class="col-3 col-md-2 col-xl-1 bg-light">
             <div class="row">
                 <button routerLink="orders" class="col btn btn-light">
                     Bestellingen
@@ -12,8 +12,10 @@
                 </button>
             </div>
         </div>
-        <div class="col-9 py-2">
-            <router-outlet></router-outlet>
+        <div class="col-9 col-md-10 col-xl-11 py-3">
+            <div class="w-100 overflow-auto">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>

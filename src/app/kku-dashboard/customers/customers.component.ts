@@ -21,19 +21,17 @@ export class CustomersComponent {
   private customerBeingEdited?: BackendCustomer;
 
   constructor(private service: CustomerService) {
-    this.service.agent.retrieve().subscribe((customers) => {
-      console.log(customers);
-    });
+    this.service.agent.retrieve();
   }
 
   public swapIfEdited(customer: BackendCustomer): BackendCustomer {
-    if (this.isEdited(customer) && this.customerBeingEdited) {
+    if (this.beingEdited(customer) && this.customerBeingEdited) {
       return this.customerBeingEdited;
     }
     return customer;
   }
 
-  public isEdited(customer: BackendCustomer): boolean {
+  public beingEdited(customer: BackendCustomer): boolean {
     if (
       this.customerBeingEdited &&
       this.customerBeingEdited.id === customer.id
@@ -48,10 +46,8 @@ export class CustomersComponent {
       this.customerBeingEdited &&
       this.customerBeingEdited.id === customer.id
     ) {
-      this.service.update(this.customerBeingEdited).subscribe({
-        next: () => {
-          this.customerBeingEdited = undefined;
-        },
+      this.service.update(this.customerBeingEdited).subscribe(() => {
+        this.customerBeingEdited = undefined;
       });
       return;
     }
@@ -59,7 +55,6 @@ export class CustomersComponent {
   }
 
   public onDelete(customer: BackendCustomer): void {
-    console.log(customer);
     this.service.delete(customer);
   }
 }

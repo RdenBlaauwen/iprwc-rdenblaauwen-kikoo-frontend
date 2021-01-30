@@ -12,7 +12,11 @@
         <tr *ngFor="let order of orders | async">
             <th>{{order.customer}}</th>
             <th>
-                <select class="form-control form-control-sm" [(ngModel)]="order.status" [disabled]="!isEdited(order)">
+                <select 
+                    class="form-control form-control-sm" 
+                    [(ngModel)]="swapIfEdited(order).status" 
+                    [disabled]="!beingEdited(order)"
+                >
                     <option *ngFor="let option of statusOptions" [ngValue]="option">{{option}}</option>
                 </select>
             </th>
