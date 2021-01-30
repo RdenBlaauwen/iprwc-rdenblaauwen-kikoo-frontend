@@ -9,7 +9,12 @@ import { CustomersComponent } from './customers/customers.component';
 import { ProductsComponent } from './products/products.component';
 
 @NgModule({
-  declarations: [DashboardComponent, OrdersComponent, CustomersComponent, ProductsComponent],
+  declarations: [
+    DashboardComponent,
+    OrdersComponent,
+    CustomersComponent,
+    ProductsComponent,
+  ],
   exports: [DashboardComponent],
   imports: [CommonModule, RouterModule, FormsModule, FontAwesomeModule],
 })
