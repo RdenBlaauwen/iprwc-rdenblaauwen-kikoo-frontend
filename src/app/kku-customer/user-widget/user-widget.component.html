@@ -1,0 +1,26 @@
+<a *ngIf="!loggedIn" class="btn btn-light rounded-pill mx-2" routerLink="/login">
+    Log in <small>of</small> Maak een account
+</a>
+<button
+    *ngIf="loggedIn"
+    class="btn btn-outline-light rounded-circle d-flex justify-content-center align-items-center"
+    (click)="onToggle()"
+>
+    <fa-icon [icon]="faUserCircle" size="2x"></fa-icon>
+</button>
+<div *ngIf="open && loggedIn" class="dropdown position-absolute bg-white rounded py-2 shadow">
+    <p class="text-muted px-4 mb-2">Ingelogd als: {{username}}</p>
+    <a class="dropdown-item">
+        <fa-icon [icon]="faBox" class="mr-1"></fa-icon>
+        Mijn bestellingen
+    </a>
+    <a class="dropdown-item" routerLink="user/settings">
+        <fa-icon [icon]="faCog" class="mr-1"></fa-icon>
+        Instellingen
+    </a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" (click)="onLogout()">
+        <fa-icon [icon]="faSignOutAlt" class="mr-1"></fa-icon>
+        Uitloggen
+    </a>
+</div>

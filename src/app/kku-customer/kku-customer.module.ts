@@ -7,6 +7,10 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { SettingsComponent } from './settings/settings.component';
+import { UserWidgetComponent } from './user-widget/user-widget.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,8 +19,21 @@ import { CustomerFormComponent } from './customer-form/customer-form.component';
     SigninComponent,
     SigninSignupComponent,
     CustomerFormComponent,
+    SettingsComponent,
+    UserWidgetComponent,
   ],
-  exports: [SigninComponent, SigninSignupComponent, CustomerFormComponent],
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  exports: [
+    SigninComponent,
+    SigninSignupComponent,
+    CustomerFormComponent,
+    UserWidgetComponent,
+  ],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    RouterModule,
+  ],
 })
 export class KkuCustomerModule {}

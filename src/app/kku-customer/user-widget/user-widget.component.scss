@@ -1,0 +1,21 @@
+$button-dimensions: 40px;
+$shadow-color: rgba(0,0,0,0.3);
+
+:host{
+    position: relative;
+
+    button {
+        height: $button-dimensions;
+        width:  $button-dimensions;
+        filter: drop-shadow(0 0 $button-dimensions/20 $shadow-color);
+        border-color: transparent;
+        font-size:1.35rem;
+        &>*{
+            margin-bottom: -1px;
+        }
+    }
+    .dropdown{
+        top: $button-dimensions + 5;
+        right:0;
+    }
+}

@@ -3,12 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Credentials, BackendUser } from '../models/user';
 import { environment } from '../../../environments/environment';
-import {
-  KkuNotification,
-  Status,
-  NotificationService,
-  Duration,
-} from './notification.service';
+import { Status, NotificationService, Duration } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +13,7 @@ export class AuthService {
     null
   );
 
+  //TODO: turns this into an observable so code can react to changes
   public get isAuthenticated(): boolean {
     return !!this.resourceOwner.value;
   }
@@ -82,5 +78,10 @@ export class AuthService {
     });
 
     return subject;
+  }
+
+  public logout(): void {
+    this._authToken = '';
+    this.resourceOwner.next(null);
   }
 }

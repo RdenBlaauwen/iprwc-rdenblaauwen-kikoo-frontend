@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SettingsComponent } from '../kku-customer/settings/settings.component';
 import { SigninSignupComponent } from '../kku-customer/signin-signup/signin-signup.component';
 import { CustomersComponent } from '../kku-dashboard/customers/customers.component';
 import { DashboardComponent } from '../kku-dashboard/dashboard/dashboard.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent },
     ],
   },
+  { path: 'user/settings', component: SettingsComponent },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   // { path: 'signup', component: '', outlit: 'modal' }
 ];
