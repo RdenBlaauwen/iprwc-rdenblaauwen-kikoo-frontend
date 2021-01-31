@@ -1,12 +1,37 @@
-$dimensions: 39px;
+$button-dimensions: 48px;
+$counter-dimensions: 1.2rem;
+$shadow-color: rgba(0,0,0,0.3);
+
+@keyframes throb {
+    from { transform: scale(1); }
+    to   { transform: scale(1.1); }
+}
+.anim-throb{
+    animation: 0.8s cubic-bezier(0.64, 0, 0.78, 0) 0s infinite alternate throb;
+}
+
 :host{
     button {
-        height: $dimensions;
-        width:  $dimensions;
+        height: $button-dimensions;
+        width:  $button-dimensions;
+        margin-top: -5px;
+        margin-bottom: -5px;
+        filter: drop-shadow(0 0 $button-dimensions/20 $shadow-color);
 
-        .counter{
-            color:black;
-            font-weight: bold;
+        &>*{
+            position: absolute;
+            &.counter{
+                height: $counter-dimensions;
+                width: $counter-dimensions;
+                bottom:0px;
+                right:0px;
+
+                background-color: rgba(230,50,30,1);
+                color: white;
+                filter: drop-shadow(0 0 $counter-dimensions/20 $shadow-color);
+                font-size: 0.8rem;
+                font-weight: bold;
+            }
         }
     }
 }

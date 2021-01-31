@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from 'src/app/kku-shared/services/cart.service';
 
 @Component({
   selector: 'kku-cart-widget',
@@ -10,7 +11,17 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 export class CartWidgetComponent {
   public faShoppingCart = faShoppingCart;
 
-  constructor(private router: Router) {}
+  public productCount = 0;
+
+  constructor(private router: Router, private cartService: CartService) {
+    this.cartService.cart.subscribe((orderProducts) => {
+      let count = 0;
+      orderProducts.forEach((orderProduct) => {
+        count += orderProduct.amount;
+      });
+      this.productCount = count;
+    });
+  }
 
   onNavigate(): void {
     this.router.navigate(['cart']);

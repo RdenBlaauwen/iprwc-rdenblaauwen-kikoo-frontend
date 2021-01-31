@@ -1,6 +1,9 @@
-<button class="btn btn-outline-warning d-flex justify-content-center align-items-center rounded-circle p-0 " (click)="onNavigate()">
-    <fa-layers [fixedWidth]="true" class="icon">
-        <fa-icon [icon]="faShoppingCart" transform="grow-6"></fa-icon> 
-        <!-- <fa-layers-text content="15" class="counter" transform="shrink-3 up-4"></fa-layers-text> -->
-    </fa-layers>
+<button class="btn btn-outline-warning d-flex justify-content-center align-items-center rounded-circle p-0 position-relative" (click)="onNavigate()">
+    <fa-icon [icon]="faShoppingCart" [ngClass]="{'anim-throb':productCount > 0}" transform="grow-12"></fa-icon>
+    <div 
+        *ngIf="productCount > 0"
+        class="counter rounded-circle text-align anim-throb"
+    >
+        {{productCount}}
+    </div>
 </button>
