@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FrontendCustomer } from 'src/app/kku-shared/models/customer';
 
 @Component({
   selector: 'kku-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
+  public customer = new FrontendCustomer();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public onSave(): void {
+    console.log(this.customer);
   }
-
 }
