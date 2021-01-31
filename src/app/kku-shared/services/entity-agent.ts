@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map, last } from 'rxjs/operators';
 import * as R from 'ramda';
 import { AnyObject, BackendEntity } from '../models/types';
 import { OperationState } from './operation-state';
@@ -49,6 +49,29 @@ export class EntityAgent<F, B extends BackendEntity> {
   ) {
     this.uri = `${environment.API_URL}/${path}`;
     this.eager && this.retrieve();
+  }
+
+  public findByPk(id: string): Observable<B | undefined> {
+    const entities = this.entities.value;
+
+    const observable = new Observable<B | undefined>((subscriber) => {
+      if (entities.length === 0) {
+        this.retrieve().subscribe(() => {
+          subscriber.next(this.findByPkSync(id));
+        });
+      } else {
+        subscriber.next(this.findByPkSync(id));
+      }
+    });
+
+    return observable;
+  }
+
+  public findByPkSync(id: string): B | undefined {
+    const entities = this.entities.value;
+    return entities.find((entity) => {
+      return entity.id === id;
+    });
   }
 
   public retrieve(): Subject<B[]> {
